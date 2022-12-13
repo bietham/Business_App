@@ -14,7 +14,6 @@ using Task3.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Task3.Store.Roles;
-using Task3.DtoModels;
 
 namespace Task3.Services
 {
@@ -27,17 +26,12 @@ namespace Task3.Services
         Task CreateAsync(TopicCreateViewModel model, string username);
         Task EditAsync(TopicEditViewModel model, ClaimsPrincipal User);
         Task DeleteAsync(TopicDeleteViewModel model, ClaimsPrincipal User);
-
-        //api methods
-        Task AddMessageByTopicId(MessageAddEditDto model, int id);
-        Task<List<MessageDto>> GetMessagesByTopicId(int id);
-        Task EditTopic(TopicAddEditDto model, int id);
-        Task DeleteTopic(int id);
     }
 
     public class TopicService : ITopicService
     {
         private ApplicationDbContext Context { get; }
+        private ISectionService SectionService { get; }
         private IMapper Mapper { get; }
         private UserManager<IdentityUser> UserManager { get; }
         private IWebHostEnvironment AppEnvironment { get; }
@@ -52,6 +46,7 @@ namespace Task3.Services
             Mapper = mapper;
             UserManager = userManager;
             AppEnvironment = appEnvironment;
+            SectionService = sectionService;
         }
 
         public async Task<TopicViewModel> GetViewModelAsync(int id)
@@ -220,80 +215,6 @@ namespace Task3.Services
                 {
                     throw new ArgumentNullException("User is not moderator for this section");
                 }
-            }
-
-            Context.Topics.Remove(topic);
-            await Context.SaveChangesAsync();
-        }
-
-        //api methods 
-
-        public async Task<List<MessageDto>> GetMessagesByTopicId(int id)
-        {
-            var topic = await Context.Topics
-                .Include(x => x.Messages)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (topic == null)
-            {
-                throw new KeyNotFoundException("Topic not found.");
-            }
-
-            var messages = Mapper.Map<List<MessageDto>>(topic.Messages);
-
-            return messages;
-        }
-        public async Task AddMessageByTopicId(MessageAddEditDto model, int id)
-        {
-            var user = await UserManager.FindByNameAsync("admin");
-            var topic = await Context.Topics
-                .Include(x => x.Messages)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (topic == null)
-            {
-                throw new KeyNotFoundException("Topic not found.");
-            }
-            if (model.Text == null)
-            {
-                throw new ArgumentNullException(nameof(model.Text));
-            }
-
-            var newMessage = Mapper.Map<Message>(model);
-            newMessage.Topic = topic;
-            newMessage.Creator = user;
-            newMessage.Created = DateTime.Now;
-
-            Context.Messages.Add(newMessage);
-
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task EditTopic(TopicAddEditDto model, int id)
-        {
-            var topic = await Context.Topics.FirstOrDefaultAsync(x => x.Id == id);
-            if (topic == null)
-            {
-                throw new KeyNotFoundException("Topic not found.");
-            }
-
-            if (model.Name == null)
-            {
-                throw new ArgumentNullException(nameof(model.Name));
-            }
-
-            topic.Name = model.Name;
-            topic.Description = model.Description;
-
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task DeleteTopic(int id)
-        {
-            var topic = await Context.Topics.FirstOrDefaultAsync(x => x.Id == id);
-            if (topic == null)
-            {
-                throw new KeyNotFoundException("Topic not found.");
             }
 
             Context.Topics.Remove(topic);
