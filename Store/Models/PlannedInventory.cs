@@ -15,7 +15,7 @@ namespace Task3.Store.Models
         public Event Event { get; set; }
         public int? RentRequestId { get; set; }
         public RentRequest RentRequest { get; set; }
-
+        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
         [Required]
         public string Name { get; set; }
         public string MeasurementUnit { get; set; } //enum

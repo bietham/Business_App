@@ -39,6 +39,8 @@ namespace Task3.Store
         {
             base.OnModelCreating(modelBuilder);
 
+            //forum modelbuilders
+
             modelBuilder.Entity<ModeratedSections>()
                 .HasKey(x => x.Id);
 
@@ -59,6 +61,92 @@ namespace Task3.Store
                 .WithMany(x => x.Topics)
                 .HasForeignKey(x => x.SectionId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //rent app modelbuilders
+
+            modelBuilder.Entity<Inventory>()
+                .HasOne(x => x.School)
+                .WithMany(x => x.Inventories)
+                .HasForeignKey(x => x.SchoolId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PlannedInventory>()
+                .HasOne(x => x.Event)
+                .WithMany(x => x.PlannedInventories)
+                .HasForeignKey(x => x.EventId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PlannedInventory>()
+                .HasOne(x => x.RentRequest)
+                .WithMany(x => x.PlannedInventories)
+                .HasForeignKey(x => x.RentRequestId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RentRequest>()
+                .HasOne(x => x.Event)
+                .WithMany(x => x.RentRequests)
+                .HasForeignKey(x => x.EventId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RentRequest>()
+                .HasOne(x => x.School)
+                .WithMany(x => x.RentRequests)
+                .HasForeignKey(x => x.SchoolId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<AllocatedInventory>()
+                .HasOne(x => x.Event)
+                .WithMany(x => x.AllocatedInventories)
+                .HasForeignKey(x => x.EventId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<AllocatedInventory>()
+                .HasOne(x => x.PlannedInventory)
+                .WithMany(x => x.AllocatedInventories)
+                .HasForeignKey(x => x.PlannedInventoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<AllocatedInventory>()
+                .HasOne(x => x.RentRequest)
+                .WithMany(x => x.AllocatedInventories)
+                .HasForeignKey(x => x.RentRequestId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<AllocatedInventory>()
+                .HasOne(x => x.Inventory)
+                .WithMany(x => x.AllocatedInventories)
+                .HasForeignKey(x => x.InventoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RequestedInventory>()
+                .HasOne(x => x.Inventory)
+                .WithMany(x => x.RequestedInventories)
+                .HasForeignKey(x => x.InventoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RequestedInventory>()
+                .HasOne(x => x.RentRequest)
+                .WithMany(x => x.RequestedInventories)
+                .HasForeignKey(x => x.RentRequestId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ReturnRequest>()
+                .HasMany(x => x.AllocatedInventories)
+                .WithOne(x => x.ReturnRequest)
+                .HasForeignKey(x => x.ReturnRequestId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ReturnRequest>()
+                .HasOne(x => x.RentRequest)
+                .WithMany(x => x.ReturnRequests)
+                .HasForeignKey(x => x.RentRequestId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UnloadRequest>()
+                .HasOne(x => x.RentRequest)
+                .WithMany(x => x.UnloadRequests)
+                .HasForeignKey(x => x.RentRequestId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

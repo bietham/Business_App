@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Task3.Store.Models
 {
+    public enum Approval
+    {
+        NotApproved, PartiallyApproved, Approved
+    }
     public class RentRequest
     {
         [Key]
@@ -15,7 +19,11 @@ namespace Task3.Store.Models
         public Event Event { get; set; }
         public int? SchoolId { get; set; }
         public School School { get; set; }
+        public Approval Approval { get; set; }
         public IEnumerable<PlannedInventory> PlannedInventories { get; set; }
-        public Dictionary<int, string> InventoryTypeToQuantity { get; set; }
+        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
+        public IEnumerable<RequestedInventory> RequestedInventories { get; set; } // type to quantity in the original
+        public IEnumerable<ReturnRequest> ReturnRequests { get; set; }
+        public IEnumerable<UnloadRequest> UnloadRequests { get; set; }
     }
 }

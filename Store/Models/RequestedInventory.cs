@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Task3.Store.Models
 {
-    public class ReturnRequest : Request
+    public class RequestedInventory
     {
-        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
+        [Key]
+        public int Id { get; set; }
         public int? RentRequestId { get; set; }
         public RentRequest RentRequest { get; set; }
+        public int? InventoryId { get; set; }
+        public Inventory Inventory { get; set; }
+        public float Amount { get; set; }
     }
 }

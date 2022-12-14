@@ -12,6 +12,7 @@ namespace Task3.Store.Models
         [Key]
         public int Id { get; set; }
         public IEnumerable<PlannedInventory> PlannedInventories { get; set; }
+        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
         public IEnumerable<RentRequest> RentRequests { get; set; }
         public string Name { get; set; }
         public DateTime StartTime { get; set; }

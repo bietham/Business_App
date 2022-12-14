@@ -14,6 +14,7 @@ namespace Task3.Store.Models
         [Required]
         public string Name { get; set; }
         public string Location { get; set; }
-        public IEnumerable<Inventory> Inventory { get; set; }
+        public IEnumerable<Inventory> Inventories { get; set; }
+        public IEnumerable<RentRequest> RentRequests { get; set; }
     }
 }

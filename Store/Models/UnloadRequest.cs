@@ -9,6 +9,7 @@ namespace Task3.Store.Models
 {
     public class UnloadRequest : Request
     {
+        public int? RentRequestId { get; set; }
         public RentRequest RentRequest { get; set; }
     }
 }

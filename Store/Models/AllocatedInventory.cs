@@ -21,8 +21,9 @@ namespace Task3.Store.Models
         public RentRequest RentRequest { get; set; }
         public int? InventoryId { get; set; }
         public Inventory Inventory { get; set; }
+        public int? ReturnRequestId { get; set; }
+        public ReturnRequest ReturnRequest { get; set; }
 
-        [Required]
         public string MeasurementUnit { get; set; } //enum
         public float Amount { get; set; }
         public float AmountUsed { get; set; }

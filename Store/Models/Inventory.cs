@@ -20,5 +20,7 @@ namespace Task3.Store.Models
         public float Rented { get; set; }
         public float Missing { get; set; }
         public bool Analogous { get; set; }
+        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
+        public IEnumerable<RequestedInventory> RequestedInventories { get; set; }
     }
 }
