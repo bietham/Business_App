@@ -12,11 +12,24 @@ namespace Task3.Store
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        //forum tables
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<ModeratedSections> ModeratedSections { get; set; }
+
+        //rent app tables
+        public DbSet<School> Schools { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<AllocatedInventory> AllocatedInventories { get; set; }
+        public DbSet<PlannedInventory> PlannedInventories { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<ReturnRequest> ReturnRequests { get; set; }
+        public DbSet<UnloadRequest> UnloadRequests { get; set; }
+        public DbSet<RentRequest> RentRequests { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
