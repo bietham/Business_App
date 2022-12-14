@@ -10,6 +10,10 @@ namespace Task3.Store.Roles
     {
         public static readonly string Admin = "Admin";
         public static readonly string Moderator = "Moderator";
-        public static readonly string[] AllRoles = new string[] { Admin, Moderator };
+
+        public static readonly string Deliveryman = "Deliveryman";
+        public static readonly string Mastermind = "Mastermind";
+        public static readonly string Storekeeper = "Storekeeper";
+        public static readonly string[] AllRoles = new string[] { Admin, Moderator, Deliveryman, Mastermind, Storekeeper };
     }
 }
