@@ -1,4 +1,4 @@
-﻿namespace Task3.ViewModels.Store
+﻿namespace Task3.ViewModels
 {
     public class InventoryDeleteViewModel
     {

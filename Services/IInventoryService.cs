@@ -16,18 +16,18 @@ using System.Security.Claims;
 using Task3.Store.Roles;
 using Task3.ViewModels.Store;
 
-namespace Task3.Services.Store
+namespace Task3.Services
 {
 
     public interface IInventoryService
     {
-        Task<InventoryViewModel> GetViewModelAsync(int id);
+        /*Task<InventoryViewModel> GetViewModelAsync(int id);
         Task<InventoryEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal User);
         Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id, ClaimsPrincipal User);
         Task<InventoryCreateViewModel> GetCreateViewModelAsync(int id);
         Task CreateAsync(InventoryCreateViewModel model, string username);
         Task EditAsync(InventoryEditViewModel model, ClaimsPrincipal User);
-        Task DeleteAsync(InventoryDeleteViewModel model, ClaimsPrincipal User);
+        Task DeleteAsync(InventoryDeleteViewModel model, ClaimsPrincipal User);*/
     }
     public class InventoryService : IInventoryService
     {
