@@ -31,6 +31,7 @@ namespace Task3.Services
     public class TopicService : ITopicService
     {
         private ApplicationDbContext Context { get; }
+
         private ISectionService SectionService { get; }
         private IMapper Mapper { get; }
         private UserManager<IdentityUser> UserManager { get; }
