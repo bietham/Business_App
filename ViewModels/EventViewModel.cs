@@ -6,7 +6,7 @@ using Task3.Store.Models;
 
 namespace Task3.ViewModels.Store
 {
-    public class Class
+    public class EventViewModel
     {
         public string Name { get; set; }
         public DateTime StartTime { get; set; }

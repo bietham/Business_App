@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Task3.Store.Models;
 using Task3.ViewModels;
+using Task3.ViewModels.Store;
 
 namespace Task3.Configuration
 {
@@ -14,6 +15,10 @@ namespace Task3.Configuration
         public MappingProfile()
         {
             CreateMap<Section, SectionViewModel>();
+
+            CreateMap<Event, EventViewModel>();
+            CreateMap<Event, EventEditViewModel>();
+            CreateMap<Event, EventDeleteViewModel>();
 
             CreateMap<Section, ModeratedSections>()
                 .ForMember(x => x.Section, opt => opt.MapFrom(src => src));
