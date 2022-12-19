@@ -50,7 +50,11 @@ namespace Task3
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAdminService, AdminService>();
+
+            //New Services
+            services.AddScoped<ISchoolService, SchoolService>();
             services.AddScoped<IInventoryService, InventoryService>();
+
             services.AddSingleton(mapper);
             services.AddControllersWithViews();
             InitializeRoles(services);
