@@ -6,7 +6,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Task3.Store.Models;
 using Task3.ViewModels;
-using Task3.ViewModels.Store;
 
 namespace Task3.Configuration
 {

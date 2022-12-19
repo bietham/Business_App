@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Task3.Store;
 using Task3.ViewModels;
-using Task3.ViewModels.Store;
 
 namespace Task3.Services
 {
     public interface IEventService
     {
-        // Task<List<EventViewModel>> GetIndexViewModelAsync();
+        Task<List<EventViewModel>> GetIndexViewModelAsync();
+        Task<EventViewModel> GetViewModelAsync(int id);
         Task CreateAsync(EventCreateViewModel vm);
         Task EditAsync(EventEditViewModel vm);
         Task DeleteAsync(EventDeleteViewModel vm);
@@ -19,20 +20,34 @@ namespace Task3.Services
 
     public class EventService : IEventService
     {
-        private ApplicationDbContext Context { get; }
-        private IWebHostEnvironment AppEnvironment { get; }
+        private ApplicationDbContext _context { get; }
+        private IMapper _mapper { get; }
+        private IWebHostEnvironment _appEnvironment { get; }
 
         public EventService(ApplicationDbContext context,
+            IMapper mapper,
             IWebHostEnvironment appEnvironment)
         {
-            Context = context;
-            AppEnvironment = appEnvironment;
+            _context = context;
+            _mapper= mapper;
+            _appEnvironment = appEnvironment;
         }
 
-        /*public async Task<List<EventViewModel>> GetIndexViewModels()
+        public async Task<List<EventViewModel>> GetIndexViewModelAsync()
         {
-            
-        }*/
+            var events = await _context.Events
+                .ToListAsync();
+
+            var vm = _mapper.Map<List<EventViewModel>>(events);
+
+            return vm;
+        }
+
+        public async EventViewModel GetViewModelAsync(int id)
+        {
+            var event = await _context.
+        }
+
 
         public async Task CreateAsync(EventCreateViewModel vm)
         {

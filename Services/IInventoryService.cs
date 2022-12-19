@@ -14,7 +14,6 @@ using Task3.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Task3.Store.Roles;
-using Task3.ViewModels.Store;
 
 namespace Task3.Services
 {
