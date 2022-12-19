@@ -1,32 +1,43 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Task3.Services;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Task3.Controllers
 {
     public class InventoryController : Controller
     {
+        private IInventoryService InventoryService { get; }
+        public InventoryController(IInventoryService inventoryService)
+        {
+            InventoryService = inventoryService;
+        }
+
         // GET: InventoryController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
 
         // GET: InventoryController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             return View();
         }
 
+        [Authorize]
         // GET: InventoryController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create(int id)
         {
-            return View();
+            var model = await InventoryService.GetCreateViewModelAsync(id);
+            return View(model);
         }
 
         // POST: InventoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
             {
@@ -39,7 +50,7 @@ namespace Task3.Controllers
         }
 
         // GET: InventoryController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             return View();
         }
@@ -47,7 +58,7 @@ namespace Task3.Controllers
         // POST: InventoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -60,7 +71,7 @@ namespace Task3.Controllers
         }
 
         // GET: InventoryController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             return View();
         }
@@ -68,7 +79,7 @@ namespace Task3.Controllers
         // POST: InventoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
