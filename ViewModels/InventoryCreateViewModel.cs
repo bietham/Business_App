@@ -5,7 +5,6 @@ namespace Task3.ViewModels
 {
     public class InventoryCreateViewModel
     {
-        public int Id { get; set; }
         public int? SchoolId { get; set; }
         public School School { get; set; }
 

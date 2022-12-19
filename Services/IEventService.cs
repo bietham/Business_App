@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Task3.Store;
 using Task3.ViewModels;
-using Task3.ViewModels.Store;
 
 namespace Task3.Services
 {
