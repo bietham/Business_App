@@ -49,6 +49,9 @@ namespace Task3.Configuration
                 .ForMember(x => x.Topic, opt => opt.MapFrom(src => src))
                 .ForMember(x => x.TopicId, opt => opt.MapFrom(src => src.Id));
             CreateMap<Attachment, AttachmentViewModel>();
+
+            CreateMap<Inventory, InventoryViewModel>();
+            CreateMap<Inventory, InventoryCreateViewModel>();
         }
     }
 }
