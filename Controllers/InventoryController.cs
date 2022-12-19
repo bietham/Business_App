@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Task3.Services;
 using System.Threading.Tasks;
+using Task3.ViewModels;
+using System;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Task3.Controllers
@@ -23,7 +25,8 @@ namespace Task3.Controllers
         // GET: InventoryController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var model = await InventoryService.GetViewModelAsync(id);
+            return View(model);
         }
 
         [Authorize]
@@ -35,22 +38,29 @@ namespace Task3.Controllers
         }
 
         // POST: InventoryController/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(InventoryCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var createModel = await InventoryService.GetCreateViewModelAsync(model.SchoolId);
+                return View(createModel);
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                await InventoryService.CreateAsync(model);
+                return RedirectToAction("Details", new { Id = model.SchoolId });
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
             }
         }
 
-        // GET: InventoryController/Edit/5
-        public async Task<IActionResult> Edit(int id)
+            // GET: InventoryController/Edit/5
+            public async Task<IActionResult> Edit(int id)
         {
             return View();
         }
