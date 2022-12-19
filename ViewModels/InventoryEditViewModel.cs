@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Task3.Store.Models;
 
-namespace Task3.ViewModels.Store
+namespace Task3.ViewModels
 {
     public class InventoryEditViewModel
     {

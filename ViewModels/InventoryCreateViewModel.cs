@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Task3.Store.Models;
 
-namespace Task3.ViewModels.Store
+namespace Task3.ViewModels
 {
     public class InventoryCreateViewModel
     {

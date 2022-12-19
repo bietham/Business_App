@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Task3.Controllers.Store
+namespace Task3.Controllers
 {
     public class InventoryController : Controller
     {

@@ -7,7 +7,7 @@ using Task3.Store;
 using Task3.ViewModels;
 using Task3.ViewModels.Store;
 
-namespace Task3.Services.Store
+namespace Task3.Services
 {
     public interface IEventService
     {

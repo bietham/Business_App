@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Task3.Services.Store;
+using Task3.Services;
 
-namespace Task3.Controllers.Store
+namespace Task3.Controllers
 {
     public class EventController : Controller
     {
