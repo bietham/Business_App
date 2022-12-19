@@ -4,7 +4,7 @@ using System;
 using Task3.Store.Models;
 using System.ComponentModel;
 
-namespace Task3.ViewModels.Store
+namespace Task3.ViewModels
 {
     public class EventCreateViewModel
     {

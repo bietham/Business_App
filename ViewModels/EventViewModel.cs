@@ -4,9 +4,9 @@ using System.Xml.Linq;
 using System;
 using Task3.Store.Models;
 
-namespace Task3.ViewModels.Store
+namespace Task3.ViewModels
 {
-    public class Class
+    public class EventViewModel
     {
         public string Name { get; set; }
         public DateTime StartTime { get; set; }
