@@ -15,6 +15,10 @@ namespace Task3.Configuration
         {
             CreateMap<Section, SectionViewModel>();
 
+            CreateMap<Event, EventViewModel>();
+            CreateMap<Event, EventEditViewModel>();
+            CreateMap<Event, EventDeleteViewModel>();
+
             CreateMap<Section, ModeratedSections>()
                 .ForMember(x => x.Section, opt => opt.MapFrom(src => src));
 
