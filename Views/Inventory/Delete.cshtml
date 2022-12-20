@@ -1,7 +1,7 @@
 ﻿@model Task3.ViewModels.InventoryDeleteViewModel
 
 <h1>Are you sure you want to delete this message?</h1>
-<form asp-action="Delete" asp-controller="Messages" method="POST">
+<form asp-action="Delete" asp-controller="Inventory" method="POST">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="SchoolId" />
 
@@ -13,7 +13,7 @@
 
     <hr>
     <div class="flex-lg-row">
-        <a asp-controller="Messages" asp-action="Index" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>
+        <a asp-controller="School" asp-action="Details" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>
         <button class="btn btn-danger" type="submit">Delete Message</button>
     </div>
 </form>

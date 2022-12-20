@@ -21,12 +21,12 @@ namespace Task3.Services
     public interface IInventoryService
     {
         Task<InventoryViewModel> GetViewModelAsync(int id);
-        //Task<InventoryEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal User);
-        //Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id, ClaimsPrincipal User);
+        Task<InventoryEditViewModel> GetEditViewModelAsync(int id);
+        Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id);
         Task<InventoryCreateViewModel> GetCreateViewModelAsync(int id);
         Task CreateAsync(InventoryCreateViewModel model);
-        //Task EditAsync(InventoryEditViewModel model, ClaimsPrincipal User);
-        //Task DeleteAsync(InventoryDeleteViewModel model, ClaimsPrincipal User);
+        Task EditAsync(InventoryEditViewModel model);
+        Task DeleteAsync(InventoryDeleteViewModel model);
     }
     public class InventoryService : IInventoryService
     {
@@ -71,6 +71,27 @@ namespace Task3.Services
             return createViewModel;
         }
 
+        public async Task<InventoryEditViewModel> GetEditViewModelAsync(int id)
+        {
+            var item = await Context.Inventories
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            return Mapper.Map<InventoryEditViewModel>(item);
+        }
+
+        public async Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id)
+        {
+            var item = await Context.Inventories
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            return Mapper.Map<InventoryDeleteViewModel>(item);
+        }
         public async Task CreateAsync(InventoryCreateViewModel model)
         {
             var school = await Context.Schools.FirstOrDefaultAsync(x => x.Id == model.SchoolId);
@@ -83,6 +104,35 @@ namespace Task3.Services
             newInv.School = school;
 
             await Context.Inventories.AddAsync(newInv);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(InventoryEditViewModel model)
+        {
+            var item = await Context.Inventories
+                .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            item.Name = model.Name;
+            item.MeasurementUnit = model.MeasurementUnit;
+            item.Amount = model.Amount;
+
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(InventoryDeleteViewModel model)
+        {
+            var item = await Context.Inventories.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            Context.Inventories.Remove(item);
             await Context.SaveChangesAsync();
         }
     }

@@ -10,13 +10,22 @@
 {
 <div class="list-group">
     <div class="list-group-item d-flex flex-column">
-        <a class="h3" asp-action="Details" asp-controller="Inventory" asp-route-id="@item.Id">@item.Name</a>
-        <div class="text-info">@item.Amount @item.MeasurementUnit</div>
-        <div class="text-success">@(item.Amount-item.Missing-item.Rented) available</div>
-        <div class="text-danger">@item.Missing missing</div>
-        <div class="text-warning">@item.Rented rented</div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a class="h3" asp-action="Details" asp-controller="Inventory" asp-route-id="@item.Id">@item.Name</a>
+                <div class="text-info">@item.Amount @item.MeasurementUnit</div>
+                <div class="text-success">@(item.Amount-item.Missing-item.Rented) available</div>
+                <div class="text-danger">@item.Missing missing</div>
+                <div class="text-warning">@item.Rented rented</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="text-danger" asp-action="Delete" asp-controller="Inventory" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-controller="Inventory" asp-route-id="@item.Id">Edit</a>
+                }
+            </div>
+        </div>
     </div>
 </div>
 }
-
-

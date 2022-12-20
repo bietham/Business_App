@@ -24,6 +24,9 @@ namespace Task3.ViewModels
 
         [Required(ErrorMessage = "Please type inventory amount.")]
         [Display(Name = "Inventory Amount")]
+        public float Amount { get; set; }
+
+        [Display(Name = "Analogous Item")]
         public bool Analogous { get; set; }
 
 

@@ -10,7 +10,16 @@
 {
 <div class="list-group">
     <div class="list-group-item d-flex flex-column">
-        <a class="h3" asp-action="Details" asp-controller="School" asp-route-id="@item.Id">@item.Name</a>
+        <div class="d-flex justify-content-between">
+            <a class="h3" asp-action="Details" asp-controller="School" asp-route-id="@item.Id">@item.Name</a>
+            <div style="display: flex; gap: 10px;">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="text-danger" asp-action="Delete" asp-controller="School" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-controller="School" asp-route-id="@item.Id">Edit</a>
+                }
+            </div>
+        </div>
     </div>
 </div>
 }

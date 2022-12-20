@@ -2,7 +2,7 @@
 
 <h1>Editing message</h1>
 
-<form asp-action="Edit" asp-controller="Messages" method="POST">
+<form asp-action="Edit" asp-controller="Inventory" method="POST">
     <input type="hidden" asp-for="SchoolId" />
 
     <div class="form-group">
@@ -17,8 +17,20 @@
         <span class="text-danger" asp-validation-for="MeasurementUnit"></span>
     </div>
 
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" type="number" step="0.01" class="form-control" />
+        <span class="text-danger" asp-validation-for="Amount"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Analogous"></label>
+        <input asp-for="Analogous" type="checkbox" class="form-control" />
+        <span class="text-danger" asp-validation-for="Analogous"></span>
+    </div>
+
     <div class="flex-lg-row">
-        <!--<a asp-controller="School" asp-action="Index" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>-->
+        <a asp-controller="School" asp-action="Details" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>
         <button class="btn btn-primary" type="submit">Edit Inventory</button>
     </div>
 </form>

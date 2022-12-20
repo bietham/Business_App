@@ -59,45 +59,78 @@ namespace Task3.Controllers
             }
         }
 
-            // GET: InventoryController/Edit/5
-            public async Task<IActionResult> Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: InventoryController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var model = await InventoryService.GetEditViewModelAsync(id/*, User*/);
+                return View(model);
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
             }
         }
 
-        // GET: InventoryController/Delete/5
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(InventoryEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var editModel = await InventoryService.GetEditViewModelAsync(model.Id/*, User*/);
+                return View(editModel);
+            }
+            try
+            {
+                await InventoryService.EditAsync(model);
+                return RedirectToAction("Details", "School", new { Id = model.SchoolId });
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
+            catch (ArgumentException ae)
+            {
+                ModelState.AddModelError(nameof(model.Name), ae.Message);
+                var editViewModel = await InventoryService.GetEditViewModelAsync(model.Id/*, User*/);
+                return View(editViewModel);
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            return View();
-        }
-
-        // POST: InventoryController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, IFormCollection collection)
-        {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var model = await InventoryService.GetDeleteViewModelAsync(id);
+                return View(model);
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(InventoryDeleteViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                await InventoryService.DeleteAsync(model);
+                return RedirectToAction("Details", "School", new { Id = model.SchoolId });
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
             }
         }
     }

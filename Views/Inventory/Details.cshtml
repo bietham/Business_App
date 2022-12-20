@@ -5,7 +5,15 @@
 
 <h1>@Model.Name in @Model.School.Name</h1>
 <hr>
-@Model.Amount @Model.MeasurementUnit 
-@Model.Rented rented, @Model.Missing missing
+@Model.Amount @Model.MeasurementUnit
+@Model.Rented rented, @Model.Missing missing, 
+@if (Model.Analogous)
+{
+    <div class="text-success">Analogous</div>
+}
+else
+{
+    <div class="text-danger">Not analogous</div>
+}
 
 
