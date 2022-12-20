@@ -18,6 +18,13 @@ namespace Task3.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Details (int id)
+        {
+            var model = await SchoolService.GetViewModelAsync(id);
+            return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var model = await SchoolService.GetIndexViewModelAsync();

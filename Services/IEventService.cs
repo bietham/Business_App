@@ -12,7 +12,7 @@ namespace Task3.Services
     public interface IEventService
     {
         Task<List<EventViewModel>> GetIndexViewModelAsync();
-        Task<EventViewModel> GetViewModelAsync(int id);
+        //Task<EventViewModel> GetViewModelAsync(int id);
         Task CreateAsync(EventCreateViewModel vm);
         Task EditAsync(EventEditViewModel vm);
         Task DeleteAsync(EventDeleteViewModel vm);
@@ -43,10 +43,10 @@ namespace Task3.Services
             return vm;
         }
 
-        public async EventViewModel GetViewModelAsync(int id)
-        {
-            var event = await _context.
-        }
+        //public async EventViewModel GetViewModelAsync(int id)
+        //{
+        //    var event = await _context.
+        //}
 
 
         public async Task CreateAsync(EventCreateViewModel vm)

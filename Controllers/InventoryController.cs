@@ -51,7 +51,7 @@ namespace Task3.Controllers
             try
             {
                 await InventoryService.CreateAsync(model);
-                return RedirectToAction("Details", new { Id = model.SchoolId });
+                return RedirectToAction("Details", "School", new { Id = model.SchoolId });
             }
             catch (ArgumentNullException)
             {

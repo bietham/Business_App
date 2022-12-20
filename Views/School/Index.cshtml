@@ -1,0 +1,18 @@
+﻿@model List<Task3.ViewModels.SchoolViewModel>
+@{
+    ViewData["Title"] = "Forum Page";
+}
+
+<h1>Schools</h1>
+<hr>
+<a asp-controller="School" asp-action="Create" class="btn btn-success mb-3">+ Create School</a>
+@foreach (var item in Model)
+{
+<div class="list-group">
+    <div class="list-group-item d-flex flex-column">
+        <a class="h3" asp-action="Details" asp-controller="School" asp-route-id="@item.Id">@item.Name</a>
+    </div>
+</div>
+}
+
+

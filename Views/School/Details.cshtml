@@ -1,0 +1,22 @@
+﻿@model Task3.ViewModels.SchoolViewModel
+@{
+    ViewData["Title"] = "Forum Page";
+}
+
+<h1>@Model.Name at @Model.Location</h1>
+<hr>
+<a asp-controller="Inventory" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-success mb-3">+ Create Inventory</a>
+@foreach (var item in Model.Inventories)
+{
+<div class="list-group">
+    <div class="list-group-item d-flex flex-column">
+        <a class="h3" asp-action="Details" asp-controller="Inventory" asp-route-id="@item.Id">@item.Name</a>
+        <div class="text-info">@item.Amount @item.MeasurementUnit</div>
+        <div class="text-success">@(item.Amount-item.Missing-item.Rented) available</div>
+        <div class="text-danger">@item.Missing missing</div>
+        <div class="text-warning">@item.Rented rented</div>
+    </div>
+</div>
+}
+
+

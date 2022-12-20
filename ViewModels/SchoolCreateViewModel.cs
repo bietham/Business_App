@@ -8,11 +8,11 @@ namespace Task3.ViewModels
 
 
         [Required(ErrorMessage = "School name cannot be empty.")]
-        [Display(Name = "Inventory Name")]
+        [Display(Name = "School Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Location name cannot be empty.")]
-        [Display(Name = "Inventory Name")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
     }
 }
