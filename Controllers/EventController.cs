@@ -16,7 +16,8 @@ namespace Task3.Controllers
         // GET: EventController
         public ActionResult Index()
         {
-            return View();
+            var model = EventService.GetIndexViewModelAsync();
+            return View(model);
         }
 
         // GET: EventController/Details/5
