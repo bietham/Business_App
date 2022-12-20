@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model List<Task3.ViewModels.EventViewModel>
+@{
+    ViewData["Title"] = "Мероприятия";
+}
+
+<h1>Все мероприятия</h1>
+<hr>
+
+@if (Model.Any())
+{
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        @foreach (var item in Model)
+        {
+            <div class="list-group">
+                <div class="list-group-item d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <a class="font-weight-bold" asp-action="Index" asp-controller="Event" asp-route-id="@item.Id">@item.Name</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
+else
+{
+    <div class="alert alert-info">
+        Мерояприятия отсутсвуют.
+    </div>
+}
+

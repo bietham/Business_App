@@ -47,6 +47,7 @@ namespace Task3
 
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IEventService, EventService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAdminService, AdminService>();
@@ -54,6 +55,7 @@ namespace Task3
             //New Services
             services.AddScoped<ISchoolService, SchoolService>();
             services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IEventService, EventService>();
 
             services.AddSingleton(mapper);
             services.AddControllersWithViews();

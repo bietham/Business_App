@@ -8,6 +8,7 @@ namespace Task3.ViewModels
 {
     public class EventViewModel
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

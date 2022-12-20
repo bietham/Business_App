@@ -11,6 +11,7 @@ using Task3.Store;
 using Task3.ViewModels;
 using Task3.Store.Models;
 using Task3.Store.Roles;
+using Microsoft.Extensions.Logging;
 
 namespace Task3.Services
 {
@@ -20,7 +21,7 @@ namespace Task3.Services
         Task<EventViewModel> GetViewModelAsync(int id);
         Task<EventEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal user);
         Task<EventDeleteViewModel> GetDeleteViewModelAsync(int id);
-        SectionCreateViewModel GetCreateViewModel();
+        EventCreateViewModel GetCreateViewModel();
         Task CreateAsync(EventCreateViewModel vm); 
         Task EditAsync(EventEditViewModel vm);
         Task DeleteAsync(EventDeleteViewModel vm);
@@ -37,14 +38,14 @@ namespace Task3.Services
             IWebHostEnvironment appEnvironment)
         {
             Context = context;
-            Mapper= mapper;
+            Mapper = mapper;
             _appEnvironment = appEnvironment;
         }
+
 
         public async Task<List<EventViewModel>> GetIndexViewModelAsync()
         {
             var events = await Context.Events
-                .Include(x => x.StartTime)
                 .ToListAsync();
 
             var vm = Mapper.Map<List<EventViewModel>>(events);
@@ -98,7 +99,7 @@ namespace Task3.Services
         {
             if (Context.Events.Any(x => x.Name.ToLower() == vm.Name.ToLower()))
             {
-                throw new ArgumentException($"Event with name {vm.Name} already exists.");
+                throw new ArgumentException($"Мероприятие с названием {vm.Name} уже существует.");
             }
 
             var newEvent = Mapper.Map<Event>(vm);
@@ -109,12 +110,46 @@ namespace Task3.Services
 
         public async Task EditAsync(EventEditViewModel vm)
         {
-            if (vm == null) { return; }
+            var eventt = await Context.Events
+                .FirstOrDefaultAsync(x => x.Id == vm.Id);
+
+            if (eventt == null)
+            {
+                throw new ArgumentNullException(nameof(eventt));
+            }
+
+            var withSameName = await Context.Sections.FirstOrDefaultAsync(x => x.Name.ToLower() == vm.Name.ToLower());
+            if (withSameName != null && eventt.Id != withSameName.Id)
+            {
+                throw new ArgumentException($"Мероприятие с названием {eventt.Name} уже существует.");
+            }
+
+            eventt.Name = vm.Name;
+
+            await Context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(EventDeleteViewModel vm)
         {
-            if (vm == null) { return; }
+            var eventt = await Context.Events.FirstOrDefaultAsync(x => x.Id == vm.Id);
+            if (eventt == null)
+            {
+                throw new ArgumentNullException(nameof(eventt));
+            }
+
+            Context.Events.Remove(eventt);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task<EventDeleteViewModel> GetDeleteViewModelAsync(int id)
+        {
+            var eventt = await Context.Events.FirstOrDefaultAsync(x => x.Id == id);
+            if (eventt == null)
+            {
+                throw new ArgumentNullException(nameof(eventt));
+            }
+
+            return Mapper.Map<EventDeleteViewModel>(eventt);
         }
     }
 }
