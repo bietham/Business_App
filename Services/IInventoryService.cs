@@ -120,6 +120,7 @@ namespace Task3.Services
             item.Name = model.Name;
             item.MeasurementUnit = model.MeasurementUnit;
             item.Amount = model.Amount;
+            item.Analogous = model.Analogous;
 
             await Context.SaveChangesAsync();
         }
