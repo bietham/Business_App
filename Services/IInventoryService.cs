@@ -20,11 +20,11 @@ namespace Task3.Services
 
     public interface IInventoryService
     {
-        //Task<InventoryViewModel> GetViewModelAsync(int id);
+        Task<InventoryViewModel> GetViewModelAsync(int id);
         //Task<InventoryEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal User);
         //Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id, ClaimsPrincipal User);
         Task<InventoryCreateViewModel> GetCreateViewModelAsync(int id);
-        //Task CreateAsync(InventoryCreateViewModel model, string username);
+        Task CreateAsync(InventoryCreateViewModel model);
         //Task EditAsync(InventoryEditViewModel model, ClaimsPrincipal User);
         //Task DeleteAsync(InventoryDeleteViewModel model, ClaimsPrincipal User);
     }
@@ -45,6 +45,21 @@ namespace Task3.Services
             UserManager = userManager;
             AppEnvironment = appEnvironment;
         }
+        public async Task<InventoryViewModel> GetViewModelAsync(int id)
+        {
+            var inventory = await Context.Inventories
+                .Include(x => x.School)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (inventory == null)
+            {
+                throw new ArgumentNullException(nameof(inventory));
+            }
+
+            var detailsViewModel = Mapper.Map<InventoryViewModel>(inventory);
+            return detailsViewModel;
+        }
+
         public async Task<InventoryCreateViewModel> GetCreateViewModelAsync(int id)
         {
             var school = await Context.Schools.FirstOrDefaultAsync(x => x.Id == id);
@@ -56,6 +71,19 @@ namespace Task3.Services
             return createViewModel;
         }
 
+        public async Task CreateAsync(InventoryCreateViewModel model)
+        {
+            var school = await Context.Schools.FirstOrDefaultAsync(x => x.Id == model.SchoolId);
+            if (school == null)
+            {
+                throw new ArgumentNullException(nameof(school));
+            }
 
+            var newInv = Mapper.Map<Inventory>(model);
+            newInv.School = school;
+
+            await Context.Inventories.AddAsync(newInv);
+            await Context.SaveChangesAsync();
+        }
     }
 }

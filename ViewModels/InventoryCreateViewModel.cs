@@ -5,7 +5,7 @@ namespace Task3.ViewModels
 {
     public class InventoryCreateViewModel
     {
-        public int? SchoolId { get; set; }
+        public int SchoolId { get; set; }
         public School School { get; set; }
 
         [Required(ErrorMessage = "Inventory name cannot be empty.")]
