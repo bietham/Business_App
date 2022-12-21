@@ -1,5 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Task3.ViewModels.EventDeleteViewModel
+
+<h1>Are you sure about deleting @Model.Name event?</h1>
+
+<form asp-action="Delete" asp-controller="Event" method="POST">
+    <input type="hidden" asp-for="Id" />
+
+    <hr>
+    <div class="d-flex justify-content-between w-100">
+        <a asp-controller="Event" asp-action="Index" class="btn btn-secondary">No, I'm such a pussy</a>
+        <button class="btn btn-danger" type="submit">Yes</button>
+    </div>
+</form>

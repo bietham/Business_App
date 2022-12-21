@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using Task3.Services;
+using Task3.ViewModels;
 
 namespace Task3.Controllers
 {
@@ -14,78 +17,119 @@ namespace Task3.Controllers
         }
 
         // GET: EventController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = EventService.GetIndexViewModelAsync();
+            var model = await EventService.GetIndexViewModelAsync();
             return View(model);
         }
 
         // GET: EventController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var model = await EventService.GetViewModelAsync(id);
+            return View(model);
         }
 
         // GET: EventController/Create
         public ActionResult Create()
         {
+            var model = EventService.GetCreateViewModel();
             return View();
         }
 
         // POST: EventController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(EventCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                await EventService.CreateAsync(model);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException ae)
             {
-                return View();
+                ModelState.AddModelError(nameof(model.Name), ae.Message);
+                return View(model);
             }
         }
 
         // GET: EventController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            try
+            {
+                var model = await EventService.GetEditViewModelAsync(id);
+                return View(model);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
         }
 
         // POST: EventController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EventEditViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var editModel = await EventService.GetEditViewModelAsync(model.Id);
+                return View(editModel);
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                await EventService.EditAsync(model);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
+            }
+            catch (ArgumentException ae)
+            {
+                ModelState.AddModelError(nameof(model.Name), ae.Message);
+                var editViewModel = await EventService.GetEditViewModelAsync(model.Id);
+                return View(editViewModel);
             }
         }
 
         // GET: EventController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            try
+            {
+                var model = await EventService.GetDeleteViewModelAsync(id);
+                return View(model);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
         }
 
         // POST: EventController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(EventDeleteViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                await EventService.DeleteAsync(model);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
             }
         }
     }

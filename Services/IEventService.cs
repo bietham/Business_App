@@ -19,7 +19,7 @@ namespace Task3.Services
     {
         Task<List<EventViewModel>> GetIndexViewModelAsync();
         Task<EventViewModel> GetViewModelAsync(int id);
-        Task<EventEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal user);
+        Task<EventEditViewModel> GetEditViewModelAsync(int id);
         Task<EventDeleteViewModel> GetDeleteViewModelAsync(int id);
         EventCreateViewModel GetCreateViewModel();
         Task CreateAsync(EventCreateViewModel vm); 
@@ -56,10 +56,6 @@ namespace Task3.Services
         public async Task<EventViewModel> GetViewModelAsync(int id)
         {
             var eventt = await Context.Events
-                .Include(x => x.StartTime)
-                .Include(x => x.EndTime)
-                .Include(x => x.Location)
-                .Include(x => x.AllocatedInventories)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (eventt == null)
@@ -75,7 +71,7 @@ namespace Task3.Services
             return new EventCreateViewModel { };
         }
 
-        public async Task<EventEditViewModel> GetEditViewModelAsync(int id, ClaimsPrincipal user)
+        public async Task<EventEditViewModel> GetEditViewModelAsync(int id)
         {
             var eventt = await Context.Events
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -125,6 +121,9 @@ namespace Task3.Services
             }
 
             eventt.Name = vm.Name;
+            eventt.Location = vm.Location;
+            eventt.StartTime = vm.StartTime;
+            eventt.EndTime = vm.EndTime;
 
             await Context.SaveChangesAsync();
         }

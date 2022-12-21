@@ -91,7 +91,7 @@ namespace Task3
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Event}/{action=Index}/{id?}");
             });
         }
         private void InitializeRoles(IServiceCollection services)

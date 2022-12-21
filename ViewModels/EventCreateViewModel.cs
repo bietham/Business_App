@@ -8,17 +8,18 @@ namespace Task3.ViewModels
 {
     public class EventCreateViewModel
     {
-        [Required(ErrorMessage = "Укажите название мероприятия")]
-        [Display(Name = "Название мероприятия")]
+        [Required(ErrorMessage = "Event name can't be empty")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Укажите дату начала мероприятия")]
-        [Display(Name = "Дата начала")]
-        public DateTime StartTime { get; set; }
-        [Required(ErrorMessage = "Укажите дату окончания мероприятия")]
-        [Display(Name = "Дата окончания")]
-        public DateTime EndTime { get; set; }
-        [Required(ErrorMessage = "Укажите место проведения мероприятия")]
-        [Display(Name = "Место проведения")]
+        [Required(ErrorMessage = "Start time can't be empty")]
+        [Display(Name = "Start time")]
+        public DateTime? StartTime { get; set; }
+        
+        [Required(ErrorMessage = "End time can't be empty")]
+        [Display(Name = "End time")]
+        public DateTime? EndTime { get; set; }
+        [Required(ErrorMessage = "Location can't be empty")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
         public IEnumerable<PlannedInventory> PlannedInventories { get; set; }
         // курьер
