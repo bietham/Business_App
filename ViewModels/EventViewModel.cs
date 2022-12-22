@@ -10,6 +10,7 @@ namespace Task3.ViewModels
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public EventStatus EventStatus { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Location { get; set; }

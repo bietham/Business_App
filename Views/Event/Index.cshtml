@@ -15,21 +15,33 @@
 
 @if (Model.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Location</th>
-                <th scope="col">Date</th>         
+    <table class="table table-hover">
+        <thead class="w-100">
+            <tr class="w-100">
+                <th class="text-left" scope="col">
+                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm }, new {@style="color:#000000"})
+                </th>
+                <th class="text-right" scope="col">
+                    @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm }, new {@style="color:#000000"})
+                </th>
+                <th class="text-right" scope="col">
+                    @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSortParm }, new {@style="color:#000000"})
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
             <tr>
-                <td scope="col"><a class="font-weight-bold" asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">@item.Name</a></td>
-                <td scope="col">@item.Location</td>
-                <td scope="col">@(item.StartTime.Date.ToString("d") + " - " + item.EndTime.Date.ToString("d"))</td>          
+                <td class="text-left" scope="col">
+                    <a class="font-weight-bold" asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">@item.Name</a>
+                </td>
+                <td class="text-right" scope="col">
+                    @(item.StartTime.Date.ToString("d") + " - " + item.EndTime.Date.ToString("d"))
+                </td>    
+                <td class="text-right" scope="col">
+                    @item.EventStatus.ToString()
+                </td>   
             </tr>
             }
         </tbody>

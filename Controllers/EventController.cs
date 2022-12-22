@@ -17,9 +17,14 @@ namespace Task3.Controllers
         }
 
         // GET: EventController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            var model = await EventService.GetIndexViewModelAsync();
+            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.StatusSortParm = sortOrder == "Status" ? "status_desc" : "Status";
+
+            var model = await EventService.GetIndexViewModelAsync(sortOrder);
+
             return View(model);
         }
 

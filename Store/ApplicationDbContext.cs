@@ -147,6 +147,11 @@ namespace Task3.Store
                 .WithMany(x => x.UnloadRequests)
                 .HasForeignKey(x => x.RentRequestId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Event>()
+            .Property(u => u.EventStatus)
+            .HasConversion<string>()
+            .HasMaxLength(50);
         }
     }
 }
