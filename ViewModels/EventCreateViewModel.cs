@@ -11,6 +11,7 @@ namespace Task3.ViewModels
         [Required(ErrorMessage = "Event name can't be empty")]
         [Display(Name = "Name")]
         public string Name { get; set; }
+        public EventStatus EventStatus { get; set; }
         [Required(ErrorMessage = "Start time can't be empty")]
         [Display(Name = "Start time")]
         public DateTime? StartTime { get; set; }

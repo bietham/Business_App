@@ -12,12 +12,13 @@ using Task3.ViewModels;
 using Task3.Store.Models;
 using Task3.Store.Roles;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.SqlClient;
 
 namespace Task3.Services
 {
     public interface IEventService
     {
-        Task<List<EventViewModel>> GetIndexViewModelAsync();
+        Task<List<EventViewModel>> GetIndexViewModelAsync(string sortOrder);
         Task<EventViewModel> GetViewModelAsync(int id);
         Task<EventEditViewModel> GetEditViewModelAsync(int id);
         Task<EventDeleteViewModel> GetDeleteViewModelAsync(int id);
@@ -43,10 +44,44 @@ namespace Task3.Services
         }
 
 
-        public async Task<List<EventViewModel>> GetIndexViewModelAsync()
+        public async Task<List<EventViewModel>> GetIndexViewModelAsync(string sortOrder)
         {
             var events = await Context.Events
                 .ToListAsync();
+
+            switch (sortOrder)
+            {
+                case "Status":
+                    events = await Context.Events
+                        .OrderBy(x => (int)x.EventStatus)
+                        .ToListAsync();
+                    break;
+                case "status_desc":
+                    events = await Context.Events
+                        .OrderBy(x => (int)x.EventStatus)
+                        .ToListAsync();
+                    break;
+                case "Name":
+                    events = await Context.Events
+                        .OrderBy(x => x.Name)
+                        .ToListAsync();
+                    break;
+                case "name_desc":
+                    events = await Context.Events
+                        .OrderByDescending(x => x.Name)
+                        .ToListAsync();
+                    break;
+                case "date_desc":
+                    events = await Context.Events
+                        .OrderByDescending(x => x.StartTime)
+                        .ToListAsync();
+                    break;
+                default:
+                    events = await Context.Events
+                        .OrderBy(x => x.StartTime)
+                        .ToListAsync();
+                    break;
+            }
 
             var vm = Mapper.Map<List<EventViewModel>>(events);
 
@@ -99,6 +134,7 @@ namespace Task3.Services
             }
 
             var newEvent = Mapper.Map<Event>(vm);
+            newEvent.EventStatus = EventStatus.Planning;
 
             Context.Events.Add(newEvent);
             await Context.SaveChangesAsync();
