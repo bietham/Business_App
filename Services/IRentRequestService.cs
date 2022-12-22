@@ -15,7 +15,7 @@ namespace Task3.Services
 {
     public interface IRentRequestService
     {
-        Task<RentRequestViewModel> GetViewModel(int id);
+        Task<RentRequestViewModel> GetViewModelAsync(int id);
         Task<RentRequestEditViewModel> GetEditViewModelAsync(int id);
         Task<RentRequestDeleteViewModel> GetDeleteViewModelAsync(int id);
         Task<RentRequestCreateViewModel> GetCreateViewModelAsync(int id);
@@ -42,7 +42,7 @@ namespace Task3.Services
             UserManager = userManager;
             AppEnvironment = appEnvironment;
         }
-        public async Task<RentRequestViewModel> GetViewModel(int id)
+        public async Task<RentRequestViewModel> GetViewModelAsync(int id)
         {
             var rentRequest = await Context.RentRequests
                 .Include(x => x.RequestedInventories)
