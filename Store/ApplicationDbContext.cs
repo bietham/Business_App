@@ -156,9 +156,15 @@ namespace Task3.Store
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Event>()
-            .Property(u => u.EventStatus)
-            .HasConversion<string>()
-            .HasMaxLength(50);
+                .Property(u => u.EventStatus)
+                .HasConversion<string>()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Inventory>()
+                .Property(u => u.MeasurementUnit)
+                .HasConversion<string>()
+                .HasMaxLength(50);
+
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿@model Task3.ViewModels.InventoryCreateViewModel
+﻿@using Task3.Models
+@using Task3.Store.Models;
+
+@model Task3.ViewModels.InventoryCreateViewModel
 
 <h1>Creating inventory in @Model.School.Name</h1>
 
@@ -20,7 +23,9 @@
                 </div>
                 <div class="col">
                     <label asp-for="MeasurementUnit"></label>
-                    <input asp-for="MeasurementUnit" type="text" class="form-control" />
+                    <select class="form-control" asp-for="MeasurementUnit" asp-items="@Html.GetEnumSelectList<MeasurementUnit>()">
+                        Measurement unit
+                    </select>
                     <span class="text-danger" asp-validation-for="MeasurementUnit"></span>
                 </div>
             </div>

@@ -16,7 +16,7 @@ namespace Task3.ViewModels
         public string Name { get; set; }
         public int? TypeId { get; set; }
         public InventoryTypeViewModel InventoryType { get; set; }
-        public string MeasurementUnit { get; set; }
+        public MeasurementUnit MeasurementUnit { get; set; }
         public float Amount { get; set; }
         public float Rented { get; set; }
         public float Missing { get; set; }

@@ -13,7 +13,7 @@ namespace Task3.Store.Models
         public int Id { get; set; }
         public int? SchoolId { get; set; }
         public School School { get; set; }
-        public string MeasurementUnit { get; set; } //enum
+        public MeasurementUnit MeasurementUnit { get; set; } //enum
         [Required]
         public string Name { get; set; }
         public int? TypeId { get; set; }
