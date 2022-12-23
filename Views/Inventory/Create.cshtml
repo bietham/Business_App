@@ -11,37 +11,41 @@
         <span class="text-danger" asp-validation-for="Name"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="MeasurementUnit"></label>
-        <input asp-for="MeasurementUnit" type="text" class="form-control" />
-        <span class="text-danger" asp-validation-for="MeasurementUnit"></span>
-    </div>
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <label asp-for="Amount"></label>
+                    <input asp-for="Amount" type="number" step="0.01" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Amount"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="MeasurementUnit"></label>
+                    <input asp-for="MeasurementUnit" type="text" class="form-control" />
+                    <span class="text-danger" asp-validation-for="MeasurementUnit"></span>
+                </div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Amount"></label>
-        <input asp-for="Amount" type="number" step="0.01" class="form-control" />
-        <span class="text-danger" asp-validation-for="Amount"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="SelectedTypeId"></label>
+            <select class="form-control" asp-for="SelectedTypeId">
+                @foreach (var item in Model.InventoryTypes)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="SelectedTypeId"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="SelectedTypeId"></label>
-        <select class="form-control" asp-for="SelectedTypeId">
-            @foreach (var item in Model.InventoryTypes)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-        <span class="text-danger" asp-validation-for="SelectedTypeId"></span>
-    </div>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" asp-for="Analogous" type="checkbox">
+                <label class="form-check-label" asp-for="Analogous"></label>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Analogous"></label>
-        <input asp-for="Analogous" type="checkbox" class="form-control" />
-        <span class="text-danger" asp-validation-for="Analogous"></span>
-    </div>
-
-    <div class="flex-lg-row">
-        <a asp-controller="School" asp-action="Details" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>
-        <button class="btn btn-success" type="submit">Create Inventory</button>
-    </div>
+        <div class="flex-lg-row">
+            <a asp-controller="School" asp-action="Details" asp-route-id="@Model.SchoolId" class="btn btn-secondary">< Back</a>
+            <button class="btn btn-success" type="submit">Create Inventory</button>
+        </div>
 </form>
