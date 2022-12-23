@@ -10,5 +10,6 @@ namespace Task3.Store.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public IEnumerable<Inventory> Inventories { get; set; }
+        public IEnumerable<RequestedInventory> RequestedInventories { get; set; }
     }
 }

@@ -102,7 +102,7 @@ namespace Task3.Services
             }
 
             var createViewModel = Mapper.Map<InventoryCreateViewModel>(school);
-            var invTypesView = Mapper.Map<List<InventoryType>>(invTypes);
+            var invTypesView = Mapper.Map<List<InventoryTypeViewModel>>(invTypes);
             createViewModel.InventoryTypes = invTypesView;
 
             return createViewModel;
@@ -139,6 +139,7 @@ namespace Task3.Services
 
             var newInv = Mapper.Map<Inventory>(model);
             newInv.School = school;
+            
 
             await Context.Inventories.AddAsync(newInv);
             await Context.SaveChangesAsync();

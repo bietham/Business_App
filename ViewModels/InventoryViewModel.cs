@@ -21,7 +21,7 @@ namespace Task3.ViewModels
         public float Rented { get; set; }
         public float Missing { get; set; }
         public bool Analogous { get; set; }
-        public List<AllocatedInventory> AllocatedInventories { get; set; }
-        public List<RequestedInventory> RequestedInventories { get; set; }
+        public List<AllocatedInventoryViewModel> AllocatedInventories { get; set; }
+        public List<RequestedInventoryViewModel> RequestedInventories { get; set; }
     }
 }

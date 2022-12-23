@@ -23,6 +23,7 @@ namespace Task3.Store
         public DbSet<School> Schools { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<InventoryType> InventoryTypes { get; set; }
         public DbSet<AllocatedInventory> AllocatedInventories { get; set; }
         public DbSet<PlannedInventory> PlannedInventories { get; set; }
         public DbSet<Request> Requests { get; set; }
@@ -125,9 +126,9 @@ namespace Task3.Store
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<RequestedInventory>()
-                .HasOne(x => x.Inventory)
+                .HasOne(x => x.InventoryType)
                 .WithMany(x => x.RequestedInventories)
-                .HasForeignKey(x => x.InventoryId)
+                .HasForeignKey(x => x.InventoryTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<RequestedInventory>()

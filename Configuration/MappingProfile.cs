@@ -54,7 +54,11 @@ namespace Task3.Configuration
             CreateMap<InventoryCreateViewModel, Inventory>();
             CreateMap<School, InventoryCreateViewModel>()
                 .ForMember(x => x.School, opt => opt.MapFrom(src => src))
-                .ForMember(x => x.SchoolId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(x => x.SchoolId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<InventoryType, InventoryTypeViewModel>();
+            CreateMap<InventoryType, InventoryTypeDeleteViewModel>();
+            CreateMap<InventoryTypeCreateViewModel, InventoryType>();
 
             CreateMap<School, SchoolViewModel>();
             CreateMap<School, SchoolEditViewModel>();

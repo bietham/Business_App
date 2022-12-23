@@ -114,10 +114,10 @@ namespace Task3.Services
             }
 
             item.Approval = model.Approval;
-            item.AllocatedInventories = model.AllocatedInventories;
-            item.RequestedInventories = model.RequestedInventories;
-            item.UnloadRequests = model.UnloadRequests;
-            item.ReturnRequests = model.ReturnRequests;
+//            item.AllocatedInventories = model.AllocatedInventories;
+//            item.RequestedInventories = model.RequestedInventories;
+//            item.UnloadRequests = model.UnloadRequests;
+//            item.ReturnRequests = model.ReturnRequests;
 
             await Context.SaveChangesAsync();
         }

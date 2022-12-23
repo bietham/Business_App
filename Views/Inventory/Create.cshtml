@@ -24,12 +24,6 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Analogous"></label>
-        <input asp-for="Analogous" type="checkbox" class="form-control" />
-        <span class="text-danger" asp-validation-for="Analogous"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="SelectedTypeId"></label>
         <select class="form-control" asp-for="SelectedTypeId">
             @foreach (var item in Model.InventoryTypes)
@@ -37,6 +31,12 @@
                 <option value="@item.Id">@item.Name</option>
             }
         </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Analogous"></label>
+        <input asp-for="Analogous" type="checkbox" class="form-control" />
+        <span class="text-danger" asp-validation-for="Analogous"></span>
     </div>
 
     <div class="flex-lg-row">
