@@ -20,7 +20,7 @@ namespace Task3.ViewModels
 
         [Required(ErrorMessage = "Please select measurement unit.")]
         [Display(Name = "Measurement unit")]
-        public string MeasurementUnit { get; set; }
+        public MeasurementUnit MeasurementUnit { get; set; }
 
         [Required(ErrorMessage = "Please type inventory amount.")]
         [Display(Name = "Inventory Amount")]
