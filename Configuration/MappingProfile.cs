@@ -15,10 +15,7 @@ namespace Task3.Configuration
         {
             CreateMap<Section, SectionViewModel>();
 
-            CreateMap<Event, EventViewModel>();
-            CreateMap<Event, EventEditViewModel>();
-            CreateMap<Event, EventDeleteViewModel>();
-            CreateMap<EventCreateViewModel, Event>();
+
 
             CreateMap<Section, ModeratedSections>()
                 .ForMember(x => x.Section, opt => opt.MapFrom(src => src));
@@ -63,6 +60,19 @@ namespace Task3.Configuration
             CreateMap<School, SchoolEditViewModel>();
             CreateMap<School, SchoolDeleteViewModel>();
             CreateMap<SchoolCreateViewModel, School>();
+
+            CreateMap<Event, EventViewModel>();
+            CreateMap<Event, EventEditViewModel>();
+            CreateMap<Event, EventDeleteViewModel>();
+            CreateMap<EventCreateViewModel, Event>();
+            CreateMap<Event, RentRequestCreateViewModel>()
+                .ForMember(x => x.Event, opt => opt.MapFrom(src => src))
+                .ForMember(x => x.EventId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<RentRequest, RentRequestViewModel>();
+            CreateMap<RentRequest, RentRequestEditViewModel>();
+            CreateMap<RentRequest, RentRequestDeleteViewModel>();
+            CreateMap<RentRequestCreateViewModel, RentRequest>();
 
 
 

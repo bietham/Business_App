@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221222202513_rentRequest")]
+    partial class rentRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,11 +309,6 @@ namespace Task3.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EventStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
@@ -355,31 +352,11 @@ namespace Task3.Migrations
                     b.Property<int?>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SchoolId");
 
-                    b.HasIndex("TypeId");
-
                     b.ToTable("Inventories");
-                });
-
-            modelBuilder.Entity("Task3.Store.Models.InventoryType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InventoryType");
                 });
 
             modelBuilder.Entity("Task3.Store.Models.Message", b =>
@@ -734,11 +711,6 @@ namespace Task3.Migrations
                     b.HasOne("Task3.Store.Models.School", "School")
                         .WithMany("Inventories")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Task3.Store.Models.InventoryType", "InventoryType")
-                        .WithMany("Inventories")
-                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

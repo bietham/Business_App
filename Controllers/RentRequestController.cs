@@ -1,40 +1,55 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using Task3.Services;
+using Task3.ViewModels;
 
 namespace Task3.Controllers
 {
     public class RentRequestController : Controller
     {
-        // GET: RentRequestController
-        public ActionResult Index()
+
+        private IRentRequestService rentRequestService { get; }
+        public RentRequestController(IRentRequestService RentRequestService)
         {
-            return View();
+            rentRequestService = RentRequestService;
         }
 
-        // GET: RentRequestController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var model = await rentRequestService.GetViewModelAsync(id);
+            return View(model);
         }
 
-        // GET: RentRequestController/Create
-        public ActionResult Create()
+        [Authorize]
+        // GET: InventoryController/Create
+        public async Task<IActionResult> Create(int id)
         {
-            return View();
+            var model = await rentRequestService.GetCreateViewModelAsync(id);
+            return View(model);
         }
 
-        // POST: RentRequestController/Create
+        // POST: InventoryController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(RentRequestViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                //var createModel = await rentRequestService.CreateViewModelAsync(model.PlannedInventories);
+                //return View(createModel);
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+             //   await InventoryService.CreateAsync(model);
+                return RedirectToAction("Details", "School", new { Id = model.SchoolId });
             }
-            catch
+            catch (ArgumentNullException)
             {
-                return View();
+                return NotFound();
             }
         }
 
