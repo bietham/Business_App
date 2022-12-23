@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Task3.ViewModels;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace Task3.Controllers
 {
@@ -17,9 +18,12 @@ namespace Task3.Controllers
         }
 
         // GET: InventoryController
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View();
+            ViewBag.NameTypeParm = sortOrder == "InventoryType" ? "InventoryType_desc" : "InventoryType";
+            var model = await InventoryService.GetIndexViewModelAsync(sortOrder);
+
+            return View(model);
         }
 
         // GET: InventoryController/Details/5

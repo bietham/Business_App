@@ -11,7 +11,7 @@ namespace Task3.ViewModels
 
         [Required(ErrorMessage = "Inventory must be selected.")]
         [Display(Name = "Inventory")]
-        public Inventory Inventory { get; set; }
+        public InventoryViewModel Inventory { get; set; }
         public string MeasurementUnit { get; set; } //enum
 
         [Required(ErrorMessage = "Select amount of inventory to plan.")]

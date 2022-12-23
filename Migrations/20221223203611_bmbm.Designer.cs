@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221223203611_bmbm")]
+    partial class bmbm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -379,7 +381,7 @@ namespace Task3.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InventoryTypes");
+                    b.ToTable("InventoryType");
                 });
 
             modelBuilder.Entity("Task3.Store.Models.Message", b =>
@@ -446,21 +448,31 @@ namespace Task3.Migrations
                     b.Property<float>("Amount")
                         .HasColumnType("real");
 
+                    b.Property<bool>("Analogous")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InventoryId")
+                    b.Property<string>("MeasurementUnit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Missing")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RentRequestId")
                         .HasColumnType("int");
 
+                    b.Property<float>("Rented")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("InventoryId");
 
                     b.HasIndex("RentRequestId");
 
@@ -534,17 +546,12 @@ namespace Task3.Migrations
                     b.Property<int?>("InventoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InventoryTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("RentRequestId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InventoryId");
-
-                    b.HasIndex("InventoryTypeId");
 
                     b.HasIndex("RentRequestId");
 
@@ -779,12 +786,6 @@ namespace Task3.Migrations
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Task3.Store.Models.Inventory", "Inventory")
-                        .WithMany()
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Task3.Store.Models.RentRequest", "RentRequest")
                         .WithMany("PlannedInventories")
                         .HasForeignKey("RentRequestId")
@@ -813,13 +814,9 @@ namespace Task3.Migrations
 
             modelBuilder.Entity("Task3.Store.Models.RequestedInventory", b =>
                 {
-                    b.HasOne("Task3.Store.Models.Inventory", null)
+                    b.HasOne("Task3.Store.Models.Inventory", "Inventory")
                         .WithMany("RequestedInventories")
-                        .HasForeignKey("InventoryId");
-
-                    b.HasOne("Task3.Store.Models.InventoryType", "InventoryType")
-                        .WithMany("RequestedInventories")
-                        .HasForeignKey("InventoryTypeId")
+                        .HasForeignKey("InventoryId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Task3.Store.Models.RentRequest", "RentRequest")

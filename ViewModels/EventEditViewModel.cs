@@ -20,7 +20,7 @@ namespace Task3.ViewModels
         [Required(ErrorMessage = "Укажите место проведения мероприятия")]
         [Display(Name = "Место проведения")]
         public string Location { get; set; }
-        public IEnumerable<PlannedInventory> PlannedInventories { get; set; }
+        public IEnumerable<PlannedInventoryViewModel> PlannedInventories { get; set; }
         // курьер
     }
 }

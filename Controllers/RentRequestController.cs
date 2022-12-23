@@ -39,12 +39,12 @@ namespace Task3.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var createModel = await InventoryService.GetCreateViewModelAsync(model.PlannedInventories);
-                return View(createModel);
+                //var createModel = await rentRequestService.CreateViewModelAsync(model.PlannedInventories);
+                //return View(createModel);
             }
             try
             {
-                await InventoryService.CreateAsync(model);
+             //   await InventoryService.CreateAsync(model);
                 return RedirectToAction("Details", "School", new { Id = model.SchoolId });
             }
             catch (ArgumentNullException)
@@ -52,27 +52,6 @@ namespace Task3.Controllers
                 return NotFound();
             }
         }*/
-
-        // GET: RentRequestController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: RentRequestController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: RentRequestController/Edit/5
         public ActionResult Edit(int id)
