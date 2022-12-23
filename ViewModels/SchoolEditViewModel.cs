@@ -15,7 +15,7 @@ namespace Task3.ViewModels
         [Required(ErrorMessage = "Location name cannot be empty.")]
         [Display(Name = "Inventory Name")]
         public string Location { get; set; }
-        public List<Inventory> Inventories { get; set; }
+        public List<InventoryViewModel> Inventories { get; set; }
 
 
     }

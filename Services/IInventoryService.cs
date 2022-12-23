@@ -63,11 +63,16 @@ namespace Task3.Services
         public async Task<InventoryCreateViewModel> GetCreateViewModelAsync(int id)
         {
             var school = await Context.Schools.FirstOrDefaultAsync(x => x.Id == id);
+            var invTypes = await Context.InventoryTypes.ToListAsync();
             if (school == null)
             {
                 throw new ArgumentNullException(nameof(school));
             }
+
             var createViewModel = Mapper.Map<InventoryCreateViewModel>(school);
+            var invTypesView = Mapper.Map<List<InventoryType>>(invTypes);
+            createViewModel.InventoryTypes = invTypesView;
+
             return createViewModel;
         }
 

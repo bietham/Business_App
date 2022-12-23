@@ -8,12 +8,12 @@ namespace Task3.ViewModels
 
         public int Id { get; set; }
         public int? EventId { get; set; }
-        public Event Event { get; set; }
+        public EventViewModel Event { get; set; }
         public int? RentRequestId { get; set; }
-        public RentRequest RentRequest { get; set; }
-        public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
+        public RentRequestViewModel RentRequest { get; set; }
+        public IEnumerable<AllocatedInventoryViewModel> AllocatedInventories { get; set; }
         public int? InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
+        public InventoryViewModel Inventory { get; set; }
         public float Amount { get; set; }
 
     }

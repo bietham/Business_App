@@ -12,8 +12,10 @@ namespace Task3.ViewModels
     {
         public int Id { get; set; }
         public int? SchoolId { get; set; }
-        public School School { get; set; }
+        public SchoolViewModel School { get; set; }
         public string Name { get; set; }
+        public int? TypeId { get; set; }
+        public InventoryTypeViewModel InventoryType { get; set; }
         public string MeasurementUnit { get; set; }
         public float Amount { get; set; }
         public float Rented { get; set; }

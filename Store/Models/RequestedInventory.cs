@@ -13,8 +13,8 @@ namespace Task3.Store.Models
         public int Id { get; set; }
         public int? RentRequestId { get; set; }
         public RentRequest RentRequest { get; set; }
-        public int? InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
+        public int? InventoryTypeId { get; set; }
+        public InventoryType InventoryType { get; set; }
         public float Amount { get; set; }
     }
 }
