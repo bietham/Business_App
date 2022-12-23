@@ -20,6 +20,7 @@ namespace Task3.Services
 
     public interface IInventoryService
     {
+        Task<List<InventoryViewModel>> GetIndexViewModelAsync(string sortOrder);
         Task<InventoryViewModel> GetViewModelAsync(int id);
         Task<InventoryEditViewModel> GetEditViewModelAsync(int id);
         Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id);
@@ -45,6 +46,37 @@ namespace Task3.Services
             UserManager = userManager;
             AppEnvironment = appEnvironment;
         }
+
+        public async Task<List<InventoryViewModel>> GetIndexViewModelAsync(string sortOrder)
+        {
+            var inventory = await Context.Inventories
+                .Include(x => x.School)
+                .ToListAsync();
+
+            switch (sortOrder)
+            {
+                case "InventoryType":
+                    inventory = await Context.Inventories
+                        .OrderBy(x => x.InventoryType.Name)
+                        .ToListAsync();
+                    break;
+                case "InventoryType_desc":
+                    inventory = await Context.Inventories
+                        .OrderBy(x => x.InventoryType.Name)
+                        .ToListAsync();
+                    break;
+                default:
+                    inventory = await Context.Inventories
+                        .OrderBy(x => x.InventoryType.Name)
+                        .ToListAsync();
+                    break;
+            }
+
+            var vm = Mapper.Map<List<InventoryViewModel>>(inventory);
+
+            return vm;
+        }
+
         public async Task<InventoryViewModel> GetViewModelAsync(int id)
         {
             var inventory = await Context.Inventories
