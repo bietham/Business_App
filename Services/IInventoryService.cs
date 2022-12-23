@@ -112,11 +112,17 @@ namespace Task3.Services
         {
             var item = await Context.Inventories
                 .FirstOrDefaultAsync(x => x.Id == id);
+            var invTypes = await Context.InventoryTypes.ToListAsync();
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
-            return Mapper.Map<InventoryEditViewModel>(item);
+
+            var editViewModel = Mapper.Map<InventoryEditViewModel>(item);
+            var invTypesView = Mapper.Map<List<InventoryTypeViewModel>>(invTypes);
+            editViewModel.InventoryTypes = invTypesView;
+
+            return editViewModel;
         }
 
         public async Task<InventoryDeleteViewModel> GetDeleteViewModelAsync(int id)
@@ -155,9 +161,11 @@ namespace Task3.Services
             }
 
             item.Name = model.Name;
+            item.TypeId = model.SelectedTypeId;
             item.MeasurementUnit = model.MeasurementUnit;
             item.Amount = model.Amount;
             item.Analogous = model.Analogous;
+
 
             await Context.SaveChangesAsync();
         }

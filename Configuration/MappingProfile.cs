@@ -49,7 +49,8 @@ namespace Task3.Configuration
             CreateMap<Attachment, AttachmentViewModel>();
 
             CreateMap<Inventory, InventoryViewModel>();
-            CreateMap<Inventory, InventoryEditViewModel>();
+            CreateMap<Inventory, InventoryEditViewModel>()
+                .ForMember(x => x.SelectedTypeId, opt => opt.MapFrom(src => src.TypeId));
             CreateMap<Inventory, InventoryDeleteViewModel>();
             CreateMap<InventoryCreateViewModel, Inventory>()
                 .ForMember(x => x.TypeId, opt => opt.MapFrom(src => src.SelectedTypeId));
