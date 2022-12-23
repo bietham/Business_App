@@ -140,7 +140,6 @@ namespace Task3.Services
             var newInv = Mapper.Map<Inventory>(model);
             newInv.School = school;
             
-
             await Context.Inventories.AddAsync(newInv);
             await Context.SaveChangesAsync();
         }

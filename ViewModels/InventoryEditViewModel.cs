@@ -26,10 +26,10 @@ namespace Task3.ViewModels
         [Display(Name = "Inventory Amount")]
         public float Amount { get; set; }
 
-        public int? TypeId { get; set; }
-        [Required(ErrorMessage = "Please select inventory type.")]
+        [Required(ErrorMessage = "Please select the type of inventory.")]
         [Display(Name = "Inventory Type")]
-        public InventoryTypeViewModel Type { get; set; }
+        public int? SelectedTypeId { get; set; }
+        public List<InventoryTypeViewModel> InventoryTypes { get; set; }
 
         [Display(Name = "Analogous Item")]
         public bool Analogous { get; set; }
