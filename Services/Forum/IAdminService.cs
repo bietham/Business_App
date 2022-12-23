@@ -17,6 +17,8 @@ namespace Task3.Services
 {
     public interface IAdminService
     {
+        public RegisterViewModel GetCreateModelAsync();
+        Task RegisterAsync(RegisterViewModel model);
         Task<List<AccountViewModel>> GetIndexViewModelAsync();
         Task<AccountEditViewModel> GetEditViewModelAsync(string username);
         Task EditAsync(AccountEditViewModel model);
@@ -46,6 +48,36 @@ namespace Task3.Services
             SignInManager = signInManager;
             AppEnvironment = appEnvironment;
         }
+
+        public RegisterViewModel GetCreateModelAsync()
+        {
+            return new RegisterViewModel { };
+        }
+        public async Task RegisterAsync(RegisterViewModel model)
+        {
+            var withSameEmail = await Context.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == model.Email.ToLower());
+            if (withSameEmail != null)
+            {
+                throw new ArgumentException($"User with {model.Email} is already registered.");
+            }
+
+            var identityResult = await UserManager.CreateAsync(
+                new IdentityUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = model.Email,
+                    UserName = model.UserName
+                },
+                model.Password);
+
+            if (identityResult.Succeeded)
+            {
+                return;
+            }
+
+            throw new Exception(identityResult.Errors.First().Description);
+        }
+
 
         public async Task<List<AccountViewModel>> GetIndexViewModelAsync()
         {

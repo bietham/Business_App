@@ -26,6 +26,38 @@ namespace Task3.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Register()
+        {
+            return View(AdminService.GetCreateModelAsync());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                await AdminService.RegisterAsync(model);
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (ArgumentException ae)
+            {
+                ModelState.AddModelError(nameof(model.Email), ae.Message);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(model);
+            }
+
+
+        }
+
         public async Task<IActionResult> Add(string id)
         {
             await AdminService.AddModerator(id);

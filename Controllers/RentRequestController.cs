@@ -32,7 +32,7 @@ namespace Task3.Controllers
         }
 
         // POST: InventoryController/Create
-        
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RentRequestViewModel model)
@@ -51,7 +51,7 @@ namespace Task3.Controllers
             {
                 return NotFound();
             }
-        }
+        }*/
 
         // GET: RentRequestController/Create
         public ActionResult Create()
