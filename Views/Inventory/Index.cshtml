@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model List<Task3.ViewModels.InventoryViewModel>
+@{
+    ViewData["Title"] = "Events";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Events</li>
+    </ol>
+</nav>
+
+<hr>
+
+@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.TypeSortParm }, new {@style="color:#000000"})
+
+
+@if (Model.Any())
+{
+    <table class="table table-hover">
+        <thead class="w-100">
+            <tr class="w-100">
+                <th class="text-left" scope="col">
+                    Type
+                </th>
+                <th class="text-right" scope="col">
+                    School    
+                </th>
+                <th class="text-right" scope="col">
+                    Quantity
+                </th>
+                <th class="text-right" scope="col">
+                    Rented
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-left" scope="col">
+                        @item.Name
+                    </td>
+                    <td class="text-right" scope="col">
+                        <a class="font-weight-bold" asp-action="Details" asp-controller="School" asp-route-id="@item.SchoolId">@item.School.Name</a>
+                    </td>
+                    <td class="text-right" scope="col">
+                        Andrew
+                    </td>
+                    <td class="text-right" scope="col">
+                        Kal
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+else
+{
+    <div class="alert alert-info">
+        No events created yet.
+    </div>
+}
+

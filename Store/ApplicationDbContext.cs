@@ -70,6 +70,12 @@ namespace Task3.Store
                 .HasForeignKey(x => x.SchoolId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Inventory>()
+                .HasOne(x => x.InventoryType)
+                .WithMany(x => x.Inventories)
+                .HasForeignKey(x => x.TypeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<PlannedInventory>()
                 .HasOne(x => x.Event)
                 .WithMany(x => x.PlannedInventories)

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221223202218_please")]
+    partial class please
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,6 +341,9 @@ namespace Task3.Migrations
                     b.Property<bool>("Analogous")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("InventoryTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MeasurementUnit")
                         .HasColumnType("nvarchar(max)");
 
@@ -355,14 +360,11 @@ namespace Task3.Migrations
                     b.Property<int?>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
+                    b.HasIndex("InventoryTypeId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Inventories");
                 });
@@ -741,14 +743,13 @@ namespace Task3.Migrations
 
             modelBuilder.Entity("Task3.Store.Models.Inventory", b =>
                 {
+                    b.HasOne("Task3.Store.Models.InventoryType", "InventoryType")
+                        .WithMany()
+                        .HasForeignKey("InventoryTypeId");
+
                     b.HasOne("Task3.Store.Models.School", "School")
                         .WithMany("Inventories")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Task3.Store.Models.InventoryType", "InventoryType")
-                        .WithMany("Inventories")
-                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

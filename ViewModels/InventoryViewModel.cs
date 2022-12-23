@@ -13,6 +13,7 @@ namespace Task3.ViewModels
         public int Id { get; set; }
         public int? SchoolId { get; set; }
         public School School { get; set; }
+        public InventoryType InventoryType { get; set; }
         public string Name { get; set; }
         public string MeasurementUnit { get; set; }
         public float Amount { get; set; }
