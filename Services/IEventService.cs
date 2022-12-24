@@ -91,6 +91,8 @@ namespace Task3.Services
         public async Task<EventViewModel> GetViewModelAsync(int id)
         {
             var eventt = await Context.Events
+                .Include(x => x.PlannedInventories)
+                .ThenInclude(y => y.InventoryType)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (eventt == null)

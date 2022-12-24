@@ -22,7 +22,9 @@ namespace Task3.ViewModels
         [Required(ErrorMessage = "Location can't be empty")]
         [Display(Name = "Location")]
         public string Location { get; set; }
+        public IEnumerable<InventoryType> InventoryTypes { get; set; }
         public IEnumerable<PlannedInventoryViewModel> PlannedInventories { get; set; }
+        public List<(int, float)> SelectedTypeIds { get; set; }
         // курьер
     }
 }

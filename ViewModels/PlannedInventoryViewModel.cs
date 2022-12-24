@@ -12,8 +12,8 @@ namespace Task3.ViewModels
         public int? RentRequestId { get; set; }
         public RentRequestViewModel RentRequest { get; set; }
         public IEnumerable<AllocatedInventoryViewModel> AllocatedInventories { get; set; }
-        public int? InventoryId { get; set; }
-        public InventoryViewModel Inventory { get; set; }
+        public int? InventoryTypeId { get; set; }
+        public InventoryTypeViewModel InventoryType { get; set; }
         public float Amount { get; set; }
 
     }
