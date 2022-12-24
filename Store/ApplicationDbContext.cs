@@ -78,6 +78,12 @@ namespace Task3.Store
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PlannedInventory>()
+                .HasOne(x => x.InventoryType)
+                .WithMany(x => x.PlannedInventories)
+                .HasForeignKey(x => x.InventoryTypeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PlannedInventory>()
                 .HasOne(x => x.Event)
                 .WithMany(x => x.PlannedInventories)
                 .HasForeignKey(x => x.EventId)
