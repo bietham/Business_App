@@ -17,7 +17,19 @@ namespace Task3.Services
 {
     public interface IAdminService
     {
+
+
         public RegisterViewModel GetCreateModelAsync();
+
+        Task AddUserRoleStorekeeper(string username);
+        Task AddUserRoleDeliveryman(string username);
+        Task AddUserRoleMastermind(string username);
+
+        Task RemoveRoleDeliveryman(string username);
+        Task RemoveRoleStorekeeper(string username);
+        Task RemoveRoleMastermind(string username);
+
+
         Task RegisterAsync(RegisterViewModel model);
         Task<List<AccountViewModel>> GetIndexViewModelAsync();
         Task<AccountEditViewModel> GetEditViewModelAsync(string username);
@@ -86,6 +98,102 @@ namespace Task3.Services
             
             return model;
         }
+        public async Task AddUserRoleDeliveryman(string user)
+        {
+            var userAcc = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == user);
+            if (userAcc == null)
+            {
+                throw new ArgumentNullException(nameof(userAcc));
+            }
+
+            await UserManager.AddToRoleAsync(userAcc, "Deliveryman");
+        }
+
+        public async Task AddUserRoleMastermind(string user)
+        {
+            var userAcc = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == user);
+            if (userAcc == null)
+            {
+                throw new ArgumentNullException(nameof(userAcc));
+            }
+
+            await UserManager.AddToRoleAsync(userAcc, "Mastermind");
+        }
+
+        public async Task AddUserRoleStorekeeper(string user)
+        {
+            var userAcc = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == user);
+            if (userAcc == null)
+            {
+                throw new ArgumentNullException(nameof(userAcc));
+            }
+
+            await UserManager.AddToRoleAsync(userAcc, "Storekeeper");
+        }
+
+        public async Task RemoveRoleDeliveryman(string username)
+        {
+            var user = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            //Courier function
+
+
+            await UserManager.RemoveFromRoleAsync(user, "Deliveryman");
+        }
+
+
+        public async Task RemoveRoleMastermind(string username)
+        {
+            var user = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+
+            var userEvents = await Context.Events.Where(x => x.Mastermind.UserName == username).ToListAsync();
+
+            if (userEvents != null)
+            {
+                foreach (var userEvent in userEvents)
+                {
+                    userEvent.Mastermind = null;
+                }
+                await Context.SaveChangesAsync();
+            }
+
+
+
+            await UserManager.RemoveFromRoleAsync(user, "Mastermind");
+        }
+
+        public async Task RemoveRoleStorekeeper(string username)
+        {
+            var user = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+
+            var userSchools = await Context.Schools.FirstOrDefaultAsync(x => x.User.UserName == username);
+
+            if (userSchools != null)
+            {
+                userSchools.User = null;
+                await Context.SaveChangesAsync();
+            }
+
+
+
+            await UserManager.RemoveFromRoleAsync(user, "Storekeeper");
+        }
+
+
         public async Task AddModerator(string username)
         {
             var user = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == username);

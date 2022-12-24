@@ -7,6 +7,8 @@ namespace Task3.ViewModels
     public class SchoolEditViewModel
     {
         public int Id { get; set; }
+        [Display(Name = "Storekeeper")]
+        public AccountViewModel Storekeeper { get; set; }
 
         [Required(ErrorMessage = "School name cannot be empty.")]
         [Display(Name = "Inventory Name")]

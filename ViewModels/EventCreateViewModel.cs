@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using Task3.Store.Models;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace Task3.ViewModels
 {
@@ -22,6 +23,11 @@ namespace Task3.ViewModels
         [Required(ErrorMessage = "Location can't be empty")]
         [Display(Name = "Location")]
         public string Location { get; set; }
+
+        public string MastermindId { get; set; }
+        public string DeliverymanId { get; set; }
+        public IdentityUser Deliveryman { get; set; }
+        public IdentityUser Mastermind { get; set; }
         public IEnumerable<PlannedInventoryViewModel> PlannedInventories { get; set; }
         // курьер
     }

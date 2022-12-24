@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221224041525_EventUsers")]
+    partial class EventUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,7 +306,10 @@ namespace Task3.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DeliverymanId")
+                    b.Property<int?>("DeliverymanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeliverymanId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("EndTime")
@@ -318,7 +323,10 @@ namespace Task3.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MastermindId")
+                    b.Property<int?>("MastermindId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MastermindId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -329,9 +337,9 @@ namespace Task3.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliverymanId");
+                    b.HasIndex("DeliverymanId1");
 
-                    b.HasIndex("MastermindId");
+                    b.HasIndex("MastermindId1");
 
                     b.ToTable("Events");
                 });
@@ -753,11 +761,11 @@ namespace Task3.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Deliveryman")
                         .WithMany()
-                        .HasForeignKey("DeliverymanId");
+                        .HasForeignKey("DeliverymanId1");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Mastermind")
                         .WithMany()
-                        .HasForeignKey("MastermindId");
+                        .HasForeignKey("MastermindId1");
                 });
 
             modelBuilder.Entity("Task3.Store.Models.Inventory", b =>

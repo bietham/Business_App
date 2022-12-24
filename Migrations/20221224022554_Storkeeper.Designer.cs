@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221224022554_Storkeeper")]
+    partial class Storkeeper
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,20 +320,20 @@ namespace Task3.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MastermindId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DeliverymanId");
 
-                    b.HasIndex("MastermindId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Events");
                 });
@@ -755,9 +757,9 @@ namespace Task3.Migrations
                         .WithMany()
                         .HasForeignKey("DeliverymanId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Mastermind")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("MastermindId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Task3.Store.Models.Inventory", b =>

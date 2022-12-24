@@ -63,10 +63,47 @@ namespace Task3.Controllers
             await AdminService.AddModerator(id);
             return RedirectToAction("Index");
         }
+        
+
+        public async Task<IActionResult> AddDeliveryman(string id)
+        {
+            await AdminService.AddUserRoleDeliveryman(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> AddStorekeeper(string id)
+        {
+            await AdminService.AddUserRoleStorekeeper(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> AddMastermind(string id)
+        {
+            await AdminService.AddUserRoleMastermind(id);
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> Delete(string id)
         {
             await AdminService.DeleteModerator(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteDeliveryman(string id)
+        {
+            await AdminService.RemoveRoleDeliveryman(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteStorekeeper(string id)
+        {
+            await AdminService.RemoveRoleStorekeeper(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteMastermind(string id)
+        {
+            await AdminService.RemoveRoleMastermind(id);
             return RedirectToAction("Index");
         }
 

@@ -9,6 +9,8 @@ namespace Task3.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
+
+        public AccountViewModel Storekeeper { get; set; }
         public List<InventoryViewModel> Inventories { get; set; }
         public List<RentRequestViewModel> RentRequests { get; set; }
 

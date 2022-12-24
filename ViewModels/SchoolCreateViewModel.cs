@@ -11,6 +11,8 @@ namespace Task3.ViewModels
         [Display(Name = "School Name")]
         public string Name { get; set; }
 
+        public AccountViewModel Storekeeper { get; set; }
+
         [Required(ErrorMessage = "Location name cannot be empty.")]
         [Display(Name = "Location")]
         public string Location { get; set; }

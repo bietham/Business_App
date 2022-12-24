@@ -91,6 +91,8 @@ namespace Task3.Services
         public async Task<EventViewModel> GetViewModelAsync(int id)
         {
             var eventt = await Context.Events
+                .Include(x=> x.Deliveryman)
+                .Include(x => x.Mastermind)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (eventt == null)
@@ -109,7 +111,9 @@ namespace Task3.Services
         public async Task<EventEditViewModel> GetEditViewModelAsync(int id)
         {
             var eventt = await Context.Events
-                .FirstOrDefaultAsync(x => x.Id == id);
+                 .Include(x => x.Deliveryman)
+                 .Include(x => x.Mastermind)
+                 .FirstOrDefaultAsync(x => x.Id == id);
             if (eventt == null)
             {
                 throw new ArgumentNullException(nameof(eventt));
@@ -133,8 +137,23 @@ namespace Task3.Services
                 throw new ArgumentException($"Мероприятие с названием {vm.Name} уже существует.");
             }
 
+            var deliveryman = await Context.Users.FirstOrDefaultAsync(x => x.UserName == vm.DeliverymanId);
+
+            if (vm.DeliverymanId != null & deliveryman == null)
+            {
+                throw new ArgumentException($"User with id {deliveryman.Id} could not be found.");
+            }
+
+            var mastermind = await Context.Users.FirstOrDefaultAsync(x => x.UserName == vm.MastermindId);
+
+            if (vm.MastermindId != null & mastermind == null)
+            {
+                throw new ArgumentException($"User with id {mastermind.Id} could not be found.");
+            }
             var newEvent = Mapper.Map<Event>(vm);
             newEvent.EventStatus = EventStatus.Planning;
+            newEvent.Deliveryman = deliveryman;
+            newEvent.Mastermind = mastermind;
 
             Context.Events.Add(newEvent);
             await Context.SaveChangesAsync();
@@ -143,6 +162,8 @@ namespace Task3.Services
         public async Task EditAsync(EventEditViewModel vm)
         {
             var eventt = await Context.Events
+                .Include(x => x.Deliveryman)
+                .Include(x => x.Mastermind)
                 .FirstOrDefaultAsync(x => x.Id == vm.Id);
 
             if (eventt == null)
@@ -156,10 +177,29 @@ namespace Task3.Services
                 throw new ArgumentException($"Мероприятие с названием {eventt.Name} уже существует.");
             }
 
+
+            var deliveryman = await Context.Users.FirstOrDefaultAsync(x => x.UserName == vm.DeliverymanId);
+
+            if (vm.DeliverymanId != null & deliveryman == null)
+            {
+                throw new ArgumentException($"User with id {deliveryman.Id} could not be found.");
+            }
+
+            var mastermind = await Context.Users.FirstOrDefaultAsync(x => x.UserName == vm.MastermindId);
+
+            if (vm.MastermindId != null & mastermind == null)
+            {
+                throw new ArgumentException($"User with id {mastermind.Id} could not be found.");
+            }
+            
+
             eventt.Name = vm.Name;
             eventt.Location = vm.Location;
             eventt.StartTime = vm.StartTime;
             eventt.EndTime = vm.EndTime;
+            eventt.EventStatus = EventStatus.Planning;
+            eventt.Deliveryman = deliveryman;
+            eventt.Mastermind = mastermind;
 
             await Context.SaveChangesAsync();
         }

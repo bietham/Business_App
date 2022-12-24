@@ -17,20 +17,62 @@
             <div class="list-group">
                 <div class="list-group-item d-flex flex-column">
                     <div class="d-flex justify-content-between">
-                        @if (!UserManager.IsInRoleAsync(account.User, "Moderator").Result)
+
+                        @if (!UserManager.IsInRoleAsync(account.User, "Moderator").Result && !UserManager.IsInRoleAsync(account.User, "Deliveryman").Result && !UserManager.IsInRoleAsync(account.User, "Storekeeper").Result && !UserManager.IsInRoleAsync(account.User, "Mastermind").Result )
                         {
-                            <a class="font-weight-bold">@account.UserName</a>
+                            <div class="font-weight-bold"  >@account.UserName</div>
                             <div style="display: flex; gap: 10px;">
                                 <a asp-action="Add" asp-controller="Admin" asp-route-id="@account.UserName">Make Moderator</a>
                             </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <a asp-action="AddDeliveryman" asp-controller="Admin" asp-route-id="@account.UserName">Make Deliveryman</a>
+                                
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <a asp-action="AddStorekeeper" asp-controller="Admin" asp-route-id="@account.UserName">Make Storekeeper</a>
+                                
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <a asp-action="AddMastermind" asp-controller="Admin" asp-route-id="@account.UserName">Make Mastermind</a>
+                                
+                            </div>
+
                         }
-                        else
+                        @if (UserManager.IsInRoleAsync(account.User, "Moderator").Result)
                         {
+                          
                             <a class="font-weight-bold" asp-action="Edit" asp-controller="Admin" asp-route-id="@account.UserName">@account.UserName</a>
                             <div style="display: flex; gap: 10px;">
                                 <a class="text-danger" asp-action="Delete" asp-controller="Admin" asp-route-id="@account.UserName">Remove Moderator</a>
                             </div>
                         }
+
+                        @if (UserManager.IsInRoleAsync(account.User, "Deliveryman").Result )
+                        {
+                            <div style="display: flex; gap: 10px;">
+                                <div class="font-weight-bold"  >@account.UserName</div>
+                                <a class="text-danger" asp-action="DeleteDeliveryman" asp-controller="Admin" asp-route-id="@account.UserName">Remove Deliveryman</a>
+                            </div>
+                        }
+
+                        @if (UserManager.IsInRoleAsync(account.User, "Storekeeper").Result )
+                        {
+                            <div style="display: flex; gap: 10px;">
+                                <div class="font-weight-bold"  >@account.UserName</div>
+                                <a class="text-danger" asp-action="DeleteStorekeeper" asp-controller="Admin" asp-route-id="@account.UserName">Remove Storekeeper</a>
+                            </div>
+                        }
+
+                        @if (UserManager.IsInRoleAsync(account.User, "Mastermind").Result )
+                        {
+
+                            <div style="display: flex; gap: 10px;">
+                                <div class="font-weight-bold"  >@account.UserName</div>
+                                <a class="text-danger" asp-action="DeleteMastermind" asp-controller="Admin" asp-route-id="@account.UserName">Remove Mastermind</a>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>

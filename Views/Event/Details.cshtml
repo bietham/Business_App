@@ -23,6 +23,30 @@
                 <th>Location</th>
                 <td>@Model.Location</td>
             </tr>
+            
+            <tr class="d-flex justify-content-between">
+                <th>Deliveryman</th>
+                @if (Model.Deliveryman != null)
+                {
+                    <td>@Model.Deliveryman.UserName</td>
+                }
+                else
+                {
+                    <td>Not assigned</td>
+                }
+            </tr>
+            <tr class="d-flex justify-content-between">
+                <th>Organiser</th>
+                @if (Model.Mastermind != null)
+                {
+                    <td>@Model.Mastermind.UserName</td>
+                }
+                else
+                {
+                    <td>Not assigned</td>
+                }
+            </tr>
+            
         </tbody>
     </table>
     <div class="mt-3">

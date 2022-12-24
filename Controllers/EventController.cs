@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -39,7 +40,8 @@ namespace Task3.Controllers
         public ActionResult Create()
         {
             var model = EventService.GetCreateViewModel();
-            return View();
+        
+            return View(model);
         }
 
         // POST: EventController/Create

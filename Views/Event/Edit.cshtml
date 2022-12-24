@@ -1,5 +1,6 @@
 ﻿@model Task3.ViewModels.EventEditViewModel
-
+@using Microsoft.AspNetCore.Identity;
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> UserManager;
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Event">Events</a></li>
@@ -34,6 +35,21 @@
         <label asp-for="Location"></label>
         <input asp-for="Location" type="text" class="form-control" />
         <span class="text-danger" asp-validation-for="Location"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DeliverymanId"></label>
+        <select class="form-control" asp-for="DeliverymanId">
+            @foreach (var item in UserManager.GetUsersInRoleAsync("Deliveryman").Result)
+            {
+                <option value="@item.UserName">@item.UserName</option>
+            }
+        </select>
+        <span class="text-danger" asp-validation-for="DeliverymanId"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="MastermindId" value="@User.Identity.Name">
     </div>
 
     <div class="flex-lg-row">
