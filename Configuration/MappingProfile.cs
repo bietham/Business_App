@@ -61,6 +61,7 @@ namespace Task3.Configuration
 
             CreateMap<InventoryType, InventoryTypeViewModel>();
             CreateMap<InventoryType, InventoryTypeDeleteViewModel>();
+            CreateMap<InventoryType, InventoryTypeEditViewModel>();
             CreateMap<InventoryTypeCreateViewModel, InventoryType>();
 
             CreateMap<School, SchoolViewModel>();
