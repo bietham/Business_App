@@ -44,6 +44,7 @@ namespace Task3.Services
                 /*.Include(x => x.Moderators)*/
                 .Include(x => x.Inventories)
                 .Include(x => x.RentRequests)
+                .Include(x => x.Storekeeper)
                 .ToListAsync();
 
             var model = Mapper.Map<List<SchoolViewModel>>(schools);
@@ -60,6 +61,7 @@ namespace Task3.Services
                 .Include(x => x.Inventories)
                 .ThenInclude(y => y.InventoryType)
                 .Include(x => x.RentRequests)
+                .Include(x => x.Storekeeper)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (school == null)

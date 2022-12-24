@@ -64,7 +64,7 @@ namespace Task3
             services.AddControllersWithViews();
             InitializeRoles(services);
             InitializeAdmin(services);
-            InitializeModerators(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -158,7 +158,7 @@ namespace Task3
                 }
             }
         }
-
+        /*
         private void InitializeModerators(IServiceCollection services)
         {
             using (var serviceProvider = services.BuildServiceProvider())
@@ -194,5 +194,6 @@ namespace Task3
                 }
             }
         }
+        */
     }
 }

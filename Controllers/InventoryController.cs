@@ -42,7 +42,7 @@ namespace Task3.Controllers
         }
 
         // POST: InventoryController/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Storekeeper")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InventoryCreateViewModel model)
@@ -63,7 +63,7 @@ namespace Task3.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Storekeeper")]
         public async Task<IActionResult> Edit(int id)
         {
             try

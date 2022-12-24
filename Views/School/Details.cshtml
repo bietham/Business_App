@@ -5,7 +5,12 @@
 
 <h1>@Model.Name at @Model.Location</h1>
 <hr>
-<a asp-controller="Inventory" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-success mb-3">+ Create Inventory</a>
+ @if (User.IsInRole("Admin") || User.Identity.Name == Model.Storekeeper.UserName)
+        {
+            <a asp-controller="Inventory" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-success mb-3">+ Create Inventory</a>
+        }
+
+
 @if (Model.Inventories.Any())
 { 
 <table class="table table-hover">

@@ -15,7 +15,7 @@ namespace Task3.Store.Models
         public string Name { get; set; }
         public string Location { get; set; }
 
-        public IdentityUser User { get; set; }
+        public IdentityUser Storekeeper{ get; set; }
         public IEnumerable<Inventory> Inventories { get; set; }
         public IEnumerable<RentRequest> RentRequests { get; set; }
     }

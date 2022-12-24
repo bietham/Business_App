@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using Task3.Store.Models;
 
 namespace Task3.ViewModels
@@ -10,7 +11,7 @@ namespace Task3.ViewModels
         public string Name { get; set; }
         public string Location { get; set; }
 
-        public AccountViewModel Storekeeper { get; set; }
+        public IdentityUser Storekeeper { get; set; }
         public List<InventoryViewModel> Inventories { get; set; }
         public List<RentRequestViewModel> RentRequests { get; set; }
 

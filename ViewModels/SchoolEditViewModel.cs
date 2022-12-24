@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Task3.Store.Models;
 
@@ -8,7 +9,7 @@ namespace Task3.ViewModels
     {
         public int Id { get; set; }
         [Display(Name = "Storekeeper")]
-        public AccountViewModel Storekeeper { get; set; }
+        public IdentityUser Storekeeper { get; set; }
 
         [Required(ErrorMessage = "School name cannot be empty.")]
         [Display(Name = "Inventory Name")]

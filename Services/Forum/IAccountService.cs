@@ -59,6 +59,8 @@ namespace Task3.Services
 
             if (identityResult.Succeeded)
             {
+                var newUsr = await UserManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserName);
+                await UserManager.AddToRoleAsync(newUsr, "Deliveryman");
                 return;
             }
 

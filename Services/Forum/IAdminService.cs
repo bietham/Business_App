@@ -180,11 +180,11 @@ namespace Task3.Services
             }
 
 
-            var userSchools = await Context.Schools.FirstOrDefaultAsync(x => x.User.UserName == username);
+            var userSchools = await Context.Schools.FirstOrDefaultAsync(x => x.Storekeeper.UserName == username);
 
             if (userSchools != null)
             {
-                userSchools.User = null;
+                userSchools.Storekeeper = null;
                 await Context.SaveChangesAsync();
             }
 

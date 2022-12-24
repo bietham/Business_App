@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using Task3.Store.Models;
 
 namespace Task3.ViewModels
@@ -11,7 +12,7 @@ namespace Task3.ViewModels
         [Display(Name = "School Name")]
         public string Name { get; set; }
 
-        public AccountViewModel Storekeeper { get; set; }
+        public IdentityUser Storekeeper { get; set; }
 
         [Required(ErrorMessage = "Location name cannot be empty.")]
         [Display(Name = "Location")]

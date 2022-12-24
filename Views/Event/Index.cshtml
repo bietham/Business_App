@@ -11,7 +11,10 @@
 </nav>
 
 <hr>
-<a asp-controller="Event" asp-action="Create" class="btn btn-success mb-3">+ Create an event</a>
+ @if (User.IsInRole("Mastermind"))
+{
+    <a asp-controller="Event" asp-action="Create" class="btn btn-success mb-3">+ Create an event</a>
+}
 
 @if (Model.Any())
 {
