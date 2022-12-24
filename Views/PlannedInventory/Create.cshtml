@@ -1,0 +1,32 @@
+﻿@using Task3.Models
+@using Task3.Store.Models;
+
+@model Task3.ViewModels.PlannedInventoryCreateViewModel
+
+<h1>Planning Inventory</h1>
+
+<form asp-action="Create" asp-controller="PlannedInventory" method="POST" enctype="multipart/form-data">
+    <input type="hidden" asp-for="EventId" />
+
+    <div class="form-group">
+        <label asp-for="SelectedInventoryTypeId"></label>
+        <select class="form-control" asp-for="SelectedInventoryTypeId">
+            @foreach (var item in Model.InventoryTypes)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <span class="text-danger" asp-validation-for="SelectedInventoryTypeId"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" type="number" step="0.01" class="form-control" />
+        <span class="text-danger" asp-validation-for="Amount"></span>
+    </div>
+
+    <div class="flex-lg-row">
+        <a asp-controller="Event" asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-secondary">< Back</a>
+        <button class="btn btn-success" type="submit">Plan Inventory</button>
+    </div>
+</form>

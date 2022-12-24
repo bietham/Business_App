@@ -78,6 +78,12 @@ namespace Task3.Store
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PlannedInventory>()
+                .HasOne(x => x.InventoryType)
+                .WithMany(x => x.PlannedInventories)
+                .HasForeignKey(x => x.InventoryTypeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PlannedInventory>()
                 .HasOne(x => x.Event)
                 .WithMany(x => x.PlannedInventories)
                 .HasForeignKey(x => x.EventId)
@@ -156,9 +162,15 @@ namespace Task3.Store
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Event>()
-            .Property(u => u.EventStatus)
-            .HasConversion<string>()
-            .HasMaxLength(50);
+                .Property(u => u.EventStatus)
+                .HasConversion<string>()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Inventory>()
+                .Property(u => u.MeasurementUnit)
+                .HasConversion<string>()
+                .HasMaxLength(50);
+
         }
     }
 }

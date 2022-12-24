@@ -1,0 +1,19 @@
+﻿@using Task3.Models
+@using Task3.Store.Models;
+
+@model Task3.ViewModels.InventoryTypeEditViewModel
+
+<h1>Editing Inventory Type</h1>
+
+<form asp-action="Edit" asp-controller="InventoryType" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="flex-lg-row">
+        <a asp-controller="InventoryType" asp-action="Index" class="btn btn-secondary">< Back</a>
+        <button class="btn btn-primary" type="submit">Edit Inventory Type</button>
+    </div>
+</form>

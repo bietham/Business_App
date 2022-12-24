@@ -1,0 +1,21 @@
+﻿@using Task3.Models
+@using Task3.Store.Models;
+
+@model Task3.ViewModels.PlannedInventoryEditViewModel
+
+<h1>Editing amount of planned @Model.InventoryType.Name</h1>
+
+<form asp-action="Edit" asp-controller="PlannedInventory" method="POST" enctype="multipart/form-data">
+    <input type="hidden" asp-for="EventId" />
+    
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" type="number" step="0.01" class="form-control" />
+        <span class="text-danger" asp-validation-for="Amount"></span>
+    </div>
+
+    <div class="flex-lg-row">
+        <a asp-controller="Event" asp-action="Details" asp-route-id="@Model.EventId" class="btn btn-secondary">< Back</a>
+        <button class="btn btn-primary" type="submit">Edit Amount</button>
+    </div>
+</form>

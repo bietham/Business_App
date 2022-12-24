@@ -28,7 +28,9 @@ namespace Task3.ViewModels
         public string DeliverymanId { get; set; }
         public IdentityUser Deliveryman { get; set; }
         public IdentityUser Mastermind { get; set; }
+        public IEnumerable<InventoryType> InventoryTypes { get; set; }
         public IEnumerable<PlannedInventoryViewModel> PlannedInventories { get; set; }
+        public List<(int, float)> SelectedTypeIds { get; set; }
         // курьер
     }
 }

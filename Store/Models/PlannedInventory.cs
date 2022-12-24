@@ -18,8 +18,8 @@ namespace Task3.Store.Models
         public IEnumerable<AllocatedInventory> AllocatedInventories { get; set; }
         [Required]
 
-        public int? InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
+        public int? InventoryTypeId { get; set; }
+        public InventoryType InventoryType { get; set; }
         public float Amount { get; set; }
 
     }

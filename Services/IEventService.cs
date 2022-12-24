@@ -93,6 +93,8 @@ namespace Task3.Services
             var eventt = await Context.Events
                 .Include(x=> x.Deliveryman)
                 .Include(x => x.Mastermind)
+                .Include(x => x.PlannedInventories)
+                .ThenInclude(y => y.InventoryType)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (eventt == null)

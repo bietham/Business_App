@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task3.Store;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221224004950_plannedinvtotype")]
+    partial class plannedinvtotype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,9 +306,6 @@ namespace Task3.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DeliverymanId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -318,9 +317,6 @@ namespace Task3.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MastermindId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -328,10 +324,6 @@ namespace Task3.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliverymanId");
-
-                    b.HasIndex("MastermindId");
 
                     b.ToTable("Events");
                 });
@@ -577,12 +569,7 @@ namespace Task3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Schools");
                 });
@@ -751,17 +738,6 @@ namespace Task3.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Task3.Store.Models.Event", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Deliveryman")
-                        .WithMany()
-                        .HasForeignKey("DeliverymanId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Mastermind")
-                        .WithMany()
-                        .HasForeignKey("MastermindId");
-                });
-
             modelBuilder.Entity("Task3.Store.Models.Inventory", b =>
                 {
                     b.HasOne("Task3.Store.Models.School", "School")
@@ -854,13 +830,6 @@ namespace Task3.Migrations
                         .WithMany("RequestedInventories")
                         .HasForeignKey("RentRequestId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Task3.Store.Models.School", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Task3.Store.Models.Topic", b =>

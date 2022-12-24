@@ -13,15 +13,14 @@
 <hr>
 
 <div>
-    <table class="w-100">
+    <table class="w-100 mb-3">
         <tbody>
             <tr class="d-flex justify-content-between">
-                <th>Date</th>
+                <th><h3>@Model.Name</h3></th>
                 <td>@(Model.StartTime.Date.ToString("d") + " - " + Model.EndTime.Date.ToString("d"))</td>
             </tr>
             <tr class="d-flex justify-content-between">
-                <th>Location</th>
-                <td>@Model.Location</td>
+                <td><a class="text-secondary">Location: @Model.Location.</a></td>
             </tr>
             
             <tr class="d-flex justify-content-between">
@@ -49,8 +48,52 @@
             
         </tbody>
     </table>
+<div class="row">
+    @if (Model.PlannedInventories.Any())
+    {
+        <div class="col list-group">
+            @foreach (var item in Model.PlannedInventories)
+            {
+                <div class="list-group-item d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Details" asp-controller="InventoryType" asp-route-id="@item.InventoryTypeId">@item.InventoryType.Name</a>
+
+                        <div style="display: flex; gap: 10px;">
+                            <div class="font-weight-bold">@item.Amount</div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="text-danger" asp-action="Delete" asp-controller="PlannedInventory" asp-route-id="@item.Id">Delete</a>
+                                <a asp-action="Edit" asp-controller="PlannedInventory" asp-route-id="@item.Id">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="col mr-1 alert alert-info">
+            No inventories planned for the event yet.
+        </div>
+    }
+
+    @if (Model.RentRequests.Any())
+    {
+        <div class="col list-group">
+        </div>
+    }
+    else
+    {
+        <div class="col ml-1 alert alert-info">
+            No rent requests for the event yet.
+        </div>
+    }
+    </div>
+
     <div class="mt-3">
-        <a class="btn btn-secondary w-100" asp-action="Create" asp-controller="RentRequest" asp-route-id="@Model.Id">Rent inventory</a>
+        <a class="btn btn-primary w-100 mb-1" asp-action="Create" asp-controller="PlannedInventory" asp-route-id="@Model.Id">+ Add planned inventory</a>
+        <a class="btn btn-secondary w-100 mb-3" asp-action="Create" asp-controller="RentRequest" asp-route-id="@Model.Id">Rent inventory</a>
         <div class="d-flex justify-content-between mt-1 w-100">
             <a class="btn btn-primary w-25" asp-action="Edit" asp-controller="Event" asp-route-id="@Model.Id">Edit</a>
             <a class="btn btn-danger ml-2 w-25" asp-action="Delete" asp-controller="Event" asp-route-id="@Model.Id">Delete</a>
