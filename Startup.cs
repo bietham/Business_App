@@ -55,6 +55,7 @@ namespace Task3
             //New Services
             services.AddScoped<ISchoolService, SchoolService>();
             services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IInventoryTypeService, InventoryTypeService>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IRentRequestService, RentRequestService>();
 

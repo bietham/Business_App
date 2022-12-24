@@ -57,6 +57,8 @@ namespace Task3.Services
                 .ThenInclude(y => y.AllocatedInventories)
                 .Include(x => x.Inventories)
                 .ThenInclude(y => y.RequestedInventories)
+                .Include(x => x.Inventories)
+                .ThenInclude(y => y.InventoryType)
                 .Include(x => x.RentRequests)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -65,7 +67,9 @@ namespace Task3.Services
                 throw new ArgumentNullException(nameof(school));
             }
 
-            return Mapper.Map<SchoolViewModel>(school);
+            var viewModel = Mapper.Map<SchoolViewModel>(school);
+
+            return viewModel;
         }
 
         public SchoolCreateViewModel GetCreateViewModel()
