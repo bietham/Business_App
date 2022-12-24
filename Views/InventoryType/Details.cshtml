@@ -1,0 +1,56 @@
+﻿@model Task3.ViewModels.InventoryTypeViewModel
+@{
+    ViewData["Title"] = "Forum Page";
+}
+
+<h1>@Model.Name</h1>
+<hr>
+<a asp-controller="InventoryType" asp-action="Index" class="btn btn-secondary mb-3">< Back</a>
+@if (Model.Inventories.Any())
+{
+    <table class="table table-hover">
+        <thead class="w-100">
+            <tr class="w-100">
+                <th class="text-left" scope="col">
+                    Name
+                </th>
+                <th class="text-right" scope="col">
+                    School
+                </th>
+                <th class="text-right" scope="col">
+                    Location
+                </th>
+                <th class="text-right" scope="col">
+                    Available
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Inventories)
+            {
+            <tr>
+                <td class="text-left" scope="col">
+                    <div>@item.Name</div>
+                </td>
+                <td class="text-right" scope="col">
+                    <a asp-action="Details" asp-controller="School" asp-route-id="@item.School.Id">@item.School.Name</a>
+                </td>
+                <td class="text-right" scope="col">
+                    <div>@item.School.Location</div>
+                </td>
+                <td class="text-right" scope="col">
+                    <div class="text-success">@(item.Amount-item.Missing-item.Rented) @item.MeasurementUnit</div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No inventories of this type created yet.
+    </div>
+}
+
+
