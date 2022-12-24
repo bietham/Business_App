@@ -15,5 +15,6 @@ namespace Task3.ViewModels
         public DateTime EndTime { get; set; }
         public string Location { get; set; }
         public IEnumerable<PlannedInventoryViewModel> PlannedInventories { get; set; }
+        public IEnumerable<RentRequest> RentRequests { get; set; }
     }
 }

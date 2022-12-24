@@ -47,7 +47,7 @@ namespace Task3.Controllers
             }
             catch (ArgumentException ae)
             {
-                ModelState.AddModelError(nameof(model), ae.Message);
+                ModelState.AddModelError(nameof(model.SelectedInventoryTypeId), ae.Message);
                 var editViewModel = await PlannedInventoryService.GetCreateViewModelAsync(model.EventId/*, User*/);
                 return View(editViewModel);
             }
